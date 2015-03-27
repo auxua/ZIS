@@ -587,6 +587,8 @@ function aktable_genericadd($arg) {
 	
 	$line ="";
 	$delim = "#|#";
+	// Stores pseudo-Hash-based Ak-names for testing on collisions
+	$hashes;
 	
 	for ($i = 0; $i<$nnews; $i++)
 	{
@@ -604,6 +606,16 @@ function aktable_genericadd($arg) {
 		
 		if (!($i >= ($nnews-1))) { $line = $line."\n"; }
 		
+		$hash = $ak['day'].$ak['time'].$ak['room'];
+		if (!empty($hashes[$hash]))
+		{
+			// Collission detected!
+			print '<h3 style="color:red">Kollision! betroffene AKs: "'.$hashes[$hash]."' und '".$ak['name']."'</h3>\n";
+			//var_dump($hashes);
+			return "";
+		}
+		$hashes[$hash] = $ak['name'];
+		
 	}
 	
 	//var_dump($AKs);
@@ -616,24 +628,28 @@ function aktable_genericadd($arg) {
 // creates a plan file for kif, based on the submitted form
 function aktable_kifadd($arg) {
 	$line = aktable_genericadd($arg);
+	if ($line =="") return;
 	file_put_contents('../aklist-kif', trim($line));	
 }
 
 // creates a plan file for zapf, based on the submitted form
 function aktable_zapfadd($arg) {
 	$line = aktable_genericadd($arg);
+	if ($line =="") return;
 	file_put_contents('../aklist-zapf', trim($line));	
 }
 
 // creates a plan file for koma, based on the submitted form
 function aktable_komaadd($arg) {
 	$line = aktable_genericadd($arg);
+	if ($line =="") return;
 	file_put_contents('../aklist-koma', trim($line));	
 }
 
 // creates a plan file for zkk, based on the submitted form
 function aktable_zkkadd($arg) {
 	$line = aktable_genericadd($arg);
+	if ($line =="") return;
 	file_put_contents('../aklist-zkk', trim($line));	
 }
 
@@ -775,5 +791,153 @@ function show_plan_blockwise($source)
 	
 }
 
+
+//////////////////////////////////////////////////////////////
+// Room  listings
+//////////////////////////////////////////////////////////////
+
+function getRoomPlan($room)
+{
+
+	$tablehead = '<table class="table table-striped table-bordered table-hover"><thead<tr><th>Uhrzeit</th><th>AK-Name</th></tr></thead>';
+	$output;
+	
+	$plan;
+	
+	$planfile1 = file_get_contents_utf8("../aklist-zapf");
+	$planfile2 = file_get_contents_utf8("../aklist-koma");
+	$planfile3 = file_get_contents_utf8("../aklist-kif");
+	$planfile4 = file_get_contents_utf8("../aklist-zkk");
+	
+	$planlines = explode("\n",$planfile1);
+	//$aklist;
+
+	foreach ($planlines as $value)
+	{
+		$pars = explode("#|#",$value);
+		$ak['day'] = $pars[0];
+		$ak['time'] = $pars[1];
+		$ak['room'] = $pars[3];
+		$ak['name'] = $pars[2];
+		
+		if ($ak['room'] == $room)
+		{
+			$plan[$ak['day']][$ak['time']] = $ak['name'];
+		}
+		
+		//$output = $output.'<tr><td>'.$pars[2].'</td><td>'.$pars[0].'</td><td>'.$pars[1].'</td><td>'.$pars[3].'</td></tr>';		
+		//$aklist[$pars[2]] = $ak;
+	}
+
+	$planlines = explode("\n",$planfile2);
+	//$aklist;
+
+	foreach ($planlines as $value)
+	{
+		$pars = explode("#|#",$value);
+		$ak['day'] = $pars[0];
+		$ak['time'] = $pars[1];
+		$ak['room'] = $pars[3];
+		$ak['name'] = $pars[2];
+	
+		
+		if ($ak['room'] == $room)
+		{
+			$plan[$ak['day']][$ak['time']] = $ak['name'];
+		}
+		
+		//$output = $output.'<tr><td>'.$pars[2].'</td><td>'.$pars[0].'</td><td>'.$pars[1].'</td><td>'.$pars[3].'</td></tr>';		
+		//$aklist[$pars[2]] = $ak;
+	}
+
+	$planlines = explode("\n",$planfile3);
+	//$aklist;
+	
+	foreach ($planlines as $value)
+	{
+		$pars = explode("#|#",$value);
+		$ak['day'] = $pars[0];
+		$ak['time'] = $pars[1];
+		$ak['name'] = $pars[2];
+		$ak['room'] = $pars[3];
+		
+		if ($ak['room'] == $room)
+		{
+			$plan[$ak['day']][$ak['time']] = $ak['name'];
+		}
+		
+		//$output = $output.'<tr><td>'.$pars[2].'</td><td>'.$pars[0].'</td><td>'.$pars[1].'</td><td>'.$pars[3].'</td></tr>';		
+		//$aklist[$pars[2]] = $ak;
+	}
+	
+	$planlines = explode("\n",$planfile4);
+	//$aklist;
+	
+	foreach ($planlines as $value)
+	{
+		$pars = explode("#|#",$value);
+		$ak['day'] = $pars[0];
+		$ak['time'] = $pars[1];
+		$ak['name'] = $pars[2];
+		$ak['room'] = $pars[3];
+		
+		if ($ak['room'] == $room)
+		{
+			$plan[$ak['day']][$ak['time']] = $ak['name'];
+		}
+		
+		//$output = $output.'<tr><td>'.$pars[2].'</td><td>'.$pars[0].'</td><td>'.$pars[1].'</td><td>'.$pars[3].'</td></tr>';		
+		//$aklist[$pars[2]] = $ak;
+	}
+	
+	ksort($plan);
+	
+	foreach ($plan as $key => $value)
+	{
+		ksort($value);
+		$output = $output.'<h3>'.$key.'</h3>';
+		$output = $output.$tablehead;
+		foreach ($value as $k => $v)
+		{
+			$output = $output.'<tr><td>'.$k.'</td><td>'.$v.'</td></tr>';		
+		}
+		//$aklist[$pars[2]] = $ak;
+		$output = $output."</table><br />";
+	}
+	
+	
+	
+	print $output;
+}
+
+function show_roomform()
+{
+	print '<form class="form-horizontal" method="post" enctype="application/x-www-form-urlencoded">
+<fieldset>
+
+<!-- Form Name -->
+<legend>Raumabfrage</legend>
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="roomname"></label>
+  <div class="controls">
+    <input id="roomname" name="roomname" type="text" placeholder="Raumname" class="input-small" required="">
+    
+  </div>
+</div>
+
+<!-- Button -->
+<div class="control-group">
+  <label class="control-label" for="singlebutton"></label>
+  <div class="controls">
+    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Plan abrufen</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+';
+}
 
 ?>

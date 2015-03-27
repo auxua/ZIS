@@ -1,12 +1,15 @@
 <?php 
 
+	require('../config.php');
+
+if ($debug) {
 ini_set('display_errors',1);
 ini_set('display_startup_errors',1);
 error_reporting(-1);
-
+}
 	require('auth.php'); 
 	require('data.php');
-	require('../config.php');
+
     
     $site = 'newsadd';
 	$subsite = "";
@@ -26,6 +29,7 @@ error_reporting(-1);
 		else if ($_SERVER['PATH_INFO'] == '/plankif') { $site='kif'; $subsite = "plan"; }
 		else if ($_SERVER['PATH_INFO'] == '/plankoma') { $site='koma'; $subsite = "plan"; }
 		else if ($_SERVER['PATH_INFO'] == '/planzkk') { $site='zkk'; $subsite = "plan"; }
+		else if ($_SERVER['PATH_INFO'] == '/room') { $site='room'; }
 	}
 ?>
 
@@ -80,6 +84,7 @@ error_reporting(-1);
               <li><a href="/admin/akplankoma">KoMA AK-Plan</a></li>
               <li><a href="/admin/akplankif">KIF AK-Plan</a></li>
               <li><a href="/admin/akplanzkk">Plan gemeinsame AKs</a></li>
+              <li><a href="/admin/room">Raumplan</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -177,7 +182,17 @@ error_reporting(-1);
 					aktable_zkk(); 
 				}
 				break;
-			
+			case "room":
+				print "<h1>Raumplan</h1>";
+				if (isset($_POST['roomname'])) 
+				{ 
+					getRoomPlan($_POST['roomname']);
+				}
+				else
+				{
+					show_roomform();
+				}
+				break;
 		}
 	  ?>
       

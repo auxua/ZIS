@@ -8,6 +8,8 @@ $twitter_consumerSecret = "";
 $oauth_token = "";
 $oauth_tokenSecret = "";
 
+$debug = true;
+
 $enable_twitter = false;
 
 ?>
