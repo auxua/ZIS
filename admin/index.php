@@ -1,13 +1,14 @@
 <?php 
 
-//ini_set('display_errors',1);
-//ini_set('display_startup_errors',1);
-//error_reporting(-1);
+ini_set('display_errors',1);
+ini_set('display_startup_errors',1);
+error_reporting(-1);
 
 	require('auth.php'); 
 	require('data.php');
+	require('../config.php');
     
-    $site = 'home';
+    $site = 'newsadd';
 	$subsite = "";
 	if (isset($_SERVER['PATH_INFO'])) {
 		if ($_SERVER['PATH_INFO'] == '/home') { $site='newsadd'; }
@@ -102,7 +103,7 @@
 	} elseif ($site == "zkk") {
 		?>
         <div class="btn-group">
-            <a href="/admin/plan<?php print $site; ?>" class="btn btn-primary "><i class="icon-white icon-calendar"></i>AK Planung</a>
+            <a href="/admin/plan<?php print $site; ?>" class="btn btn-primary "><i class="icon-white icon-calendar"></i> AK Planung</a>
 		</div>
         <?php	
 	}
@@ -116,7 +117,7 @@
 				if (isset($_POST['titel'])) {
 					$titel = $_POST['titel'];
 					$text = $_POST['text'];
-					news_add($titel,$text);
+					news_add($titel,$text,$enable_twitter);
 				}
 				// provide a form
 				news_addform();	

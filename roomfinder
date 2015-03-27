@@ -1,0 +1,32 @@
+Se 001#|#Ein Raum im Erdgeschoss des Semi90 (Templergraben 90)
+Se 002#|#Ein Raum im Erdgeschoss des Semi90 (Templergraben 90)
+Se 003#|#Ein Raum im Erdgeschoss des Semi90 (Templergraben 90)
+Se 101#|#Ein Raum im ersten Obergeschoss des Semi90 (Templergraben 90)
+Se 102#|#Ein Raum im ersten Obergeschoss des Semi90 (Templergraben 90)
+Se 103#|#Ein Raum im ersten Obergeschoss des Semi90 (Templergraben 90)
+Se 108#|#Ein Raum im ersten Obergeschoss des Semi90 (Templergraben 90)
+Se 209#|#Ein Raum im zweiten Obergeschoss des Semi90 (Templergraben 90)
+ST 1#|#Ein Raum im SemiTEMP (Parkplatz Schinkelstraße)
+ST 2#|#Ein Raum im SemiTEMP (Parkplatz Schinkelstraße)
+ST 3#|#Ein Raum im SemiTEMP (Parkplatz Schinkelstraße)
+ST 4#|#Ein Raum im SemiTEMP (Parkplatz Schinkelstraße)
+ST 5#|#Ein Raum im SemiTEMP (Parkplatz Schinkelstraße)
+ST 6#|#Ein Raum im SemiTEMP (Parkplatz Schinkelstraße)
+ST 7#|#Ein Raum im SemiTEMP (Parkplatz Schinkelstraße)
+ST 8#|#Ein Raum im SemiTEMP (Parkplatz Schinkelstraße)
+Aula 2#|#Der große Versammlungsraum im Informatikzentrum. Befindet sich direkt neben dem Eingang an der Ahornstraße.
+AH I#|#Der Hörsaal befindet sich im Informatikzentrum, relativ mittig im Gebäude im Ergeschoss.
+AH II)#|#Der Hörsaal befindet sich im Informatikzentrum, relativ mittig im Gebäude im ersten Obergeschoss.
+AH III#|#Der Hörsaal befindet sich im Informatikzentrum, relativ mittig im Gebäude im dritten Obergeschoss.
+AH IV#|#Der Hörsaal befindet sich im Informatikzentrum, direkt neben dem Eingang an der Ahornstraße, gegenüber der Aula 2.
+AH V#|#Der Hörsaal befindet sich im Informatikzentrum, direkt bei dem Eingang an der Mies-van-der-Rohe-Straße.
+AH VI#|#Der Hörsaal befindet sich im Informatikzentrum, direkt bei dem Eingang an der Mies-van-der-Rohe-Straße.
+5052#|#Ein Seminar- und Schlafraum im Informatikzentrum, direkt bei dem Eingang an der Mies-van-der-Rohe-Straße.
+5054#|#Ein Seminar- und Schlafraum im Informatikzentrum, direkt bei dem Eingang an der Mies-van-der-Rohe-Straße.
+5055#|#Ein Seminar- und Schlafraum im Informatikzentrum, direkt bei dem Eingang an der Mies-van-der-Rohe-Straße.
+5056#|#Ein Seminar- und Schlafraum im Informatikzentrum, direkt bei dem Eingang an der Mies-van-der-Rohe-Straße.
+9U09#|#Ein Raum im (ebenerdigen) Kellergeschoss des Informatikzentrums-Gebäude auf dem Parkplatz. Durch den Eingang und dann in den Flur auf der linken Seite.
+9U10#|#Ein Raum im (ebenerdigen) Kellergeschoss des Informatikzentrums-Gebäude auf dem Parkplatz. Durch den Eingang und dann in den Flur auf der linken Seite.
+Couvenhalle#|#Die Couvenhalle befindet sich in der Kármánstraße 17-19, "Hinter" dem anderen großen Gebäude, welches sich dort befindet.
+TEMP#|#Der TEMPEL am Republikplatz ist das große Gebäude neben dem Bahnhof.
+TEMPEL#|#Der TEMPEL am Republikplatz ist das große Gebäude neben dem Bahnhof.

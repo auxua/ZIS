@@ -14,7 +14,7 @@
 
 
 ////////////////////////////////////////////////////////
-/// Some helper functions
+/// Some helper functions and Twitter Integration
 ////////////////////////////////////////////////////////
 
 function file_get_contents_utf8($fn) {
@@ -31,6 +31,33 @@ function startsWith($haystack, $needle) {
 function endsWith($haystack, $needle) {
     // search forward starting from end minus needle length characters
     return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== FALSE);
+}
+
+function tweetIt($post){
+	
+	//exceptions
+	if (!is_string($post)) {
+		return false;
+	}
+	if ( (strlen($post)<6) || (strlen($post)>140) ) {
+		return false;
+	}
+	
+	//Tweet it
+	// require codebird
+	require_once('codebird.php');
+	require('../config.php');
+ 
+	\Codebird\Codebird::setConsumerKey($twitter_consumerKey, $twitter_consumerSecret);
+	$cb = \Codebird\Codebird::getInstance();
+	$cb->setToken($oauth_token, $oauth_tokenSecret);
+ 
+	$params = array(
+	  'status' => $post,
+	);
+	$reply = $cb->statuses_update($params);
+	
+	return true;
 }
 
 /////////////////////////////////////////////////////////
@@ -58,7 +85,7 @@ function news_addform() {
     
     <!-- Textarea -->
     <div class="control-group">
-      <label class="control-label" for="text">Neldungstext</label>
+      <label class="control-label" for="text">Meldungstext</label>
       <div class="controls">
         <textarea id="text" name="text">AK Mate fällt aus, da das Wetter schlecht ist</textarea>
       </div>
@@ -77,7 +104,7 @@ function news_addform() {
 }
 
 // Update the news-Text-File
-function news_add($title, $text) {
+function news_add($title, $text, $tweet) {
 	if (empty($title)) {
 		print "Fehler - Keint Titel angegeben!";
 		return;
@@ -98,6 +125,13 @@ function news_add($title, $text) {
 	file_put_contents('../news.txt', $line);
 		
 	print "Beitrag hinzugefügt";
+	
+
+	
+	if ($tweet) {
+		tweetIt("Aktuelle Ankündigung: ".$title." #zkk15");
+		print "<br />News getweetet...";
+	}
 }
 
 // provides a table of all news and the otion to delete entries
@@ -350,8 +384,8 @@ function import_koma() {
 		
 		// For better parsing, use the edit-view of the wiki
 		// Debugging: use old version, no entries on the new page!
-		//$url = "http://die-koma.org/komapedia/koma:74_berlin-aks?do=edit";
-		$url = "http://die-koma.org/komapedia/koma:76_aachen-aks?do=edit";
+		$url = "http://die-koma.org/komapedia/koma:74_berlin-aks?do=edit";
+		//$url = "http://die-koma.org/komapedia/koma:76_aachen-aks?do=edit";
 		$re = "/\\|\\*\\*.*\\n.*/";  
 		$content = file_get_contents_utf8($url);
 		
@@ -603,16 +637,28 @@ function aktable_zkkadd($arg) {
 	file_put_contents('../aklist-zkk', trim($line));	
 }
 
-function show_kifplan() {
-	show_plan('aklist-kif');	
+function show_kifplan($block) {
+	if (!$block) {
+		show_plan('aklist-kif');	
+	} else {
+		show_plan_blockwise('aklist-kif');
+	}
 }
 
-function show_komaplan() {
-	show_plan('aklist-koma');	
+function show_komaplan($block) {
+	if (!$block) {
+		show_plan('aklist-koma');	
+	} else {
+		show_plan_blockwise('aklist-koma');
+	}
 }
 
-function show_zapfplan() {
-	show_plan('aklist-zapf');	
+function show_zapfplan($block) {
+	if (!$block) {
+		show_plan('aklist-zapf');	
+	} else {
+		show_plan_blockwise('aklist-zapf');
+	}
 }
 
 function show_zkkplan() {
@@ -646,4 +692,88 @@ function show_plan($source)
 	
 	print $output;
 }
+
+
+// Shows the plan of workshops according to the input file in blocks of day/time
+function show_plan_blockwise($source)
+{
+	//$tablestart = '<table class="table table-striped table-bordered table-hover"><thead<tr><th>AK-Name</th><th>Tag</th><th>Zeit</th><th>Ort</th></tr></thead>';
+	$tablestart = '<table class="table table-striped table-bordered table-hover"><thead<tr><th>AK-Name</th><th>Ort</th></tr></thead>';
+	
+	//$output = $tablestart;
+	
+	$planfile;
+	
+	$planfile = file_get_contents_utf8($source);
+	
+	$AKs;
+	//$indices;
+	
+	$planlines = explode("\n",$planfile);
+	//$aklist;
+	
+	foreach ($planlines as $value)
+	{
+		$pars = explode("#|#",$value);
+		$ak['day'] = $pars[0];
+		$ak['time'] = $pars[1];
+		$ak['room'] = $pars[3];
+		$ak['name'] = $pars[2];
+		
+		$index = $ak['day']." - ".$ak['time'];
+		//$indices[] = $index;
+
+		$AKs[$index][] = $ak;
+		
+		//$output = $output.'<tr><td>'.$pars[2].'</td><td>'.$pars[0].'</td><td>'.$pars[1].'</td><td>'.$pars[3].'</td></tr>';
+		//$aklist[$pars[2]] = $ak;
+	}
+	
+	//$output = $output."</table>";
+	
+	//print $output;
+	
+	//var_dump($AKs);
+	
+	// create blockwise
+	ksort($AKs);
+	
+	$rowstart = '<div class="row">';
+	$rowend = '</div>';
+	$output = "";
+	$newrow = true;
+	
+	foreach ($AKs as $key => $value)
+	{
+		if ($newrow) {
+			$output = $output.$rowstart;
+		}
+		$output = $output.'<div class="span6">';
+		$output = $output."<h2>".$key."</h2>";
+		$output = $output.$tablestart;
+		
+		foreach ($value as $akb)
+		{
+			$output = $output.'<tr><td>'.$akb['name'].'</td><td>'.$akb['room'].'</td></tr>';
+		}
+		
+		$output = $output."</table>";
+		$output = $output.'</div>';
+		
+		if (!($newrow)) {
+			$output = $output.$rowend;
+		}
+		
+		$newrow = !$newrow;
+	}
+	
+	if ($newrow == false) {
+		$output = $output.$rowend;	
+	}
+	
+	print $output;
+	
+}
+
+
 ?>

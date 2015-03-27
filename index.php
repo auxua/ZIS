@@ -1,14 +1,47 @@
 <?php
+ini_set('display_errors',1);
+ini_set('display_startup_errors',1);
+error_reporting(-1);
+
 	require('admin/data.php');
     
-    $site = 'news';
-	if (isset($_SERVER['PATH_INFO'])) {
-		if ($_SERVER['PATH_INFO'] == '/news') { $site='news'; }
-		else if ($_SERVER['PATH_INFO'] == '/zapf') { $site='zapf'; }
-		else if ($_SERVER['PATH_INFO'] == '/kif') { $site='kif'; }
-		else if ($_SERVER['PATH_INFO'] == '/koma') { $site='koma';}
-		else if ($_SERVER['PATH_INFO'] == '/zkk') { $site='zkk';}
+	
+	$path_info = $_SERVER['PATH_INFO'];
+	if (!startsWith($path_info,"/news/")) {
+		$path_info = "/news".$path_info;
 	}
+	
+	//var_dump($path_info);
+	
+    $site = 'news';
+	/*if (isset($_SERVER['PATH_INFO'])) {
+		if ($_SERVER['PATH_INFO'] == '/news/news') { $site='news'; }
+		else if ($_SERVER['PATH_INFO'] == '/news/zapf') { $site='zapf'; $view = "list"; }
+		else if ($_SERVER['PATH_INFO'] == '/news/kif') { $site='kif'; $view = "list"; }
+		else if ($_SERVER['PATH_INFO'] == '/news/koma') { $site='koma'; $view = "list"; }
+		else if ($_SERVER['PATH_INFO'] == '/news/zkk') { $site='zkk';}
+		else if ($_SERVER['PATH_INFO'] == '/news/zapfblock') { $site='zapf'; $view = "block"; }
+		else if ($_SERVER['PATH_INFO'] == '/news/kifblock') { $site='kif'; $view = "block"; }
+		else if ($_SERVER['PATH_INFO'] == '/news/komablock') { $site='koma'; $view = "block"; }
+		else if ($_SERVER['PATH_INFO'] == '/news/app') { $site='koma'; $view = "block"; }
+		else if ($_SERVER['PATH_INFO'] == '/news/tagungsheft') { $site='koma'; $view = "block"; }
+		else if ($_SERVER['PATH_INFO'] == '/news/zapfgo') { $site='zapfgo';  }
+		else if ($_SERVER['PATH_INFO'] == '/news/zapfsatzung') { $site='zapfsatzung';  }
+	}*/
+	
+	
+	if ($path_info == '/news') { $site='news'; }
+		else if ($path_info == '/news/zapf') { $site='zapf'; $view = "list"; }
+		else if ($path_info == '/news/kif') { $site='kif'; $view = "list"; }
+		else if ($path_info == '/news/koma') { $site='koma'; $view = "list"; }
+		else if ($path_info == '/news/zkk') { $site='zkk';}
+		else if ($path_info == '/news/zapfblock') { $site='zapf'; $view = "block"; }
+		else if ($path_info == '/news/kifblock') { $site='kif'; $view = "block"; }
+		else if ($path_info == '/news/komablock') { $site='koma'; $view = "block"; }
+		else if ($path_info == '/news/app') { $site='koma'; $view = "block"; }
+		else if ($path_info == '/news/tagungsheft') { $site='koma'; $view = "block"; }
+		else if ($path_info == '/news/zapfgo') { $site='zapfgo';  }
+		else if ($path_info == '/news/zapfsatzung') { $site='zapfsatzung';  }
 
 ?> 
 
@@ -57,11 +90,14 @@
           <a class="brand" href="#">ZIS</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li><a href="/news">News</a></li>
+              <li><a href="/">News</a></li>
               <li><a href="/zapf">AK-Plan ZaPF</a></li>
               <li><a href="/kif">AK-Plan KIF</a></li>
               <li><a href="/koma">AK-Plan KOMA</a></li>
-              <li><a href="/zkk">gemeinsame AKs</a></li>
+              <li><a href="/zkk">Gemeinsame AKs</a></li>
+              <li><a href="/tagungsheft.pdf">Tagungsheft</a></li>
+              <li><a href="/engelsystem">Mithelfen!</a></li>
+              <li><a href="/zapfgo">GO/Satzung ZaPF</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -69,6 +105,31 @@
     </div>
 
     <div class="container">
+    
+    <?php
+	if (($site == "zapf") || ($site == "kif") || ($site == "koma"))
+	{
+		?>
+        
+        <div class="btn-group">
+        	<a href="/<?php print $site; ?>" class="btn btn-info "><i class="icon-white icon-th-list"></i> als Liste</a>
+            <a href="/<?php print $site; ?>block" class="btn btn-primary "><i class="icon-white icon-th-large"></i> als Slot-Blöcke</a>
+		</div>
+        <?php		
+		
+	} elseif (($site == "zapfgo") || ($site == "zapfsatzung"))
+	{
+		?>
+        
+        <div class="btn-group">
+        	<a href="/zapfgo" class="btn btn-info "><i class="icon-white icon-list-alt"></i> ZaPF GO</a>
+            <a href="/zapfsatzung" class="btn btn-primary "><i class="icon-white icon-list-alt"></i> ZaPF Satzung</a>
+		</div>
+        <?php		
+	}
+	
+	?>
+    
 <?php
 	switch($site) {
 		case "news":
@@ -77,19 +138,43 @@
 			break;
 		case "kif":
 			print "<h1>KIF AK-Plan</h1>";
-			show_kifplan();
+			if ($view == "list") {
+				show_kifplan(false);
+			} else {
+				show_kifplan(true);
+			}
 			break;
 		case "zapf":
 			print "<h1>ZaPF AK-Plan</h1>";
-			show_zapfplan();
+			if ($view == "list") {
+				show_zapfplan(false);
+			} else {
+				show_zapfplan(true);
+			}
 			break;
 		case "koma":
 			print "<h1>KoMa AK-Plan</h1>";
-			show_komaplan();
+			if ($view == "list") {
+				show_komaplan(false);
+			} else {
+				show_komaplan(true);
+			}
 			break;
 		case "zkk":
 			print "<h1>Gemeinsamer AK-Plan</h1>";
 			show_zkkplan();
+			break;
+		case "zapfgo":
+			print "<h1>Geschäftsordnung der ZaPF</h1>";
+			print "<pre>";
+			print file_get_contents_utf8("zapfgo.txt");
+			print "</pre>";
+			break;
+		case "zapfsatzung":
+			print "<h1>Satzung der ZaPF</h1>";
+			print "<pre>";
+			print file_get_contents_utf8("zapfsatzung.txt");
+			print "</pre>";
 			break;
 	}
 	
@@ -105,7 +190,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Fachschaft I/1 der RWTH Aachen 2015</p>
+                    <p>Copyright &copy; Fachschaft I/1 der RWTH Aachen 2015 - <a href="https://zkk.fsmpi.rwth-aachen.de/kontakt.html" >Impressum</a></p>
                 </div>
             </div>
             <!-- /.row -->

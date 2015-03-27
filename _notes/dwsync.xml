@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="news.txt" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130712384920000000" remote="130712384920000000" Dst="1" />
-<file name="admin.php" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130705827196328790" remote="130705827150000000" Dst="1" />
-<file name="index.php" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130712738420000000" remote="130712738420000000" Dst="1" />
-<file name="oldindex.php" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130704609643857790" remote="130712349780000000" Dst="1" />
-<file name=".htaccess" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130712386878980913" remote="130712393910000000" Dst="1" />
-<file name="ak-kif" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130712791780000000" remote="130712791780000000" Dst="1" />
-<file name="ak-zapf" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130712791060000000" remote="130712791060000000" Dst="1" />
-<file name="ak-koma" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130712726080000000" remote="130712726080000000" Dst="1" />
-<file name="aklist-kif" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130712725750000000" remote="130712725750000000" Dst="1" />
-<file name="aklist-zapf" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130712791590000000" remote="130712791590000000" Dst="1" />
+<file name="news.txt" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718690250000000" remote="130718690250000000" Dst="1" />
+<file name="index.php" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718756280000000" remote="130718756280000000" Dst="1" />
+<file name=".htaccess" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718690190000000" remote="130718690190000000" Dst="1" />
+<file name="ak-kif" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718690210000000" remote="130718690210000000" Dst="1" />
+<file name="ak-zapf" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718690210000000" remote="130718690210000000" Dst="1" />
+<file name="ak-koma" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718690210000000" remote="130718690210000000" Dst="1" />
+<file name="aklist-kif" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718690210000000" remote="130718690210000000" Dst="1" />
+<file name="aklist-zapf" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718690220000000" remote="130718690220000000" Dst="1" />
+<file name="aklist-zkk" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718690220000000" remote="130718690220000000" Dst="1" />
+<file name="ak-zkk" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718690210000000" remote="130718690210000000" Dst="1" />
+<file name="admin.php" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718690210000000" remote="130718690210000000" Dst="1" />
+<file name=".gitignore" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718690180000000" remote="130718690180000000" Dst="1" />
+<file name="config.php" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718690240000000" remote="130718690240000000" Dst="1" />
+<file name="config_sample.php" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718690240000000" remote="130718690240000000" Dst="1" />
+<file name="zapfgo.txt" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718690260000000" remote="130718690260000000" Dst="1" />
+<file name="zapfsatzung.txt" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718690260000000" remote="130718690260000000" Dst="1" />
+<file name="tagungsheft.pdf" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718690260000000" remote="130718690260000000" Dst="1" />
+<file name="links" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718690250000000" remote="130718690250000000" Dst="1" />
+<file name="oldindex.php" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718690250000000" remote="130718690250000000" Dst="1" />
+<file name="aklist-koma" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718690220000000" remote="130718690220000000" Dst="1" />
+<file name="rooms" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718690260000000" remote="130718690260000000" Dst="1" />
+<file name="policies" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718690250000000" remote="130718690250000000" Dst="1" />
+<file name="roomfinder" server="auxua.eu//var/www/vhosts/auxua.eu/zkknews.auxua.eu/" local="130718690260000000" remote="130718690260000000" Dst="1" />
 </dwsync>

@@ -1,14 +1,5 @@
 <?php
-
-
-	//Hard-coded, because only one user
-	$logpass = '$6$rounds=5000$mysaltistsillyfo$J3rVYfihkowu.xgVqACWWZXM9s6wazKt7VGPcGb5HnIf5qFZWAngC/EfMDi/9AspZ3nAJXQckp.2nqWhMk2aJ/';
-    
-    
-    
-    
-    //var_dump($_POST);
-	
+	require('../config.php');
 	
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       session_start();
