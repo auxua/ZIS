@@ -85,6 +85,7 @@ error_reporting(-1);
               <li><a href="/admin/akplankif">KIF AK-Plan</a></li>
               <li><a href="/admin/akplanzkk">Plan gemeinsame AKs</a></li>
               <li><a href="/admin/room">Raumplan</a></li>
+              <li><a href="/admin/logout.php">Logout</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
