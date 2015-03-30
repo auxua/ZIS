@@ -10,6 +10,20 @@ error_reporting(-1);
 	require('auth.php'); 
 	require('data.php');
 
+
+	// The whole $path_info-Stuff is just a fix for the nginx...
+	
+	//var_dump($_SERVER['PATH_INFO']);
+	$path_info = $_SERVER['PATH_INFO'];
+	
+	if (startsWith($path_info,"//")) {
+		$path_info = substr($path_info,1);
+	}
+	
+	
+	if (!startsWith($path_info,"/news/")) {
+		$path_info = "/news".$path_info;
+	}
     
 	$path_info = $_SERVER['PATH_INFO'];
 	if (!startsWith($path_info,"/news/admin/")) {
@@ -83,14 +97,14 @@ error_reporting(-1);
           <a class="brand" href="/admin/home">ZIS - Admin Panel</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li><a href="/admin/newsadd"><i class="icon-comment icon-white" > </i> Neue News</a></li>
-              <li><a href="/admin/newsdelete"><i class="icon-remove icon-white" > </i> News löschen</a></li>
-              <li><a href="/admin/akplanzapf"><i class="icon-calendar icon-white" > </i> ZaPF AK-Plan</a></li>
-              <li><a href="/admin/akplankoma"><i class="icon-calendar icon-white" > </i> KoMA AK-Plan</a></li>
-              <li><a href="/admin/akplankif"><i class="icon-calendar icon-white" > </i> KIF AK-Plan</a></li>
-              <li><a href="/admin/akplanzkk"><i class="icon-calendar icon-white" > </i> Plan gemeinsame AKs</a></li>
-              <li><a href="/admin/room"><i class="icon-home icon-white" > </i> Raumplan</a></li>
-              <li><a href="/admin/logout.php" style="color:#D90000"><i class="icon-share icon-white" > </i> Logout</a></li>
+              <li><a href="/news/admin/newsadd"><i class="icon-comment icon-white" > </i> Neue News</a></li>
+              <li><a href="/news/admin/newsdelete"><i class="icon-remove icon-white" > </i> News löschen</a></li>
+              <li><a href="/news/admin/akplanzapf"><i class="icon-calendar icon-white" > </i> ZaPF AK-Plan</a></li>
+              <li><a href="/news/admin/akplankoma"><i class="icon-calendar icon-white" > </i> KoMA AK-Plan</a></li>
+              <li><a href="/news/admin/akplankif"><i class="icon-calendar icon-white" > </i> KIF AK-Plan</a></li>
+              <li><a href="/news/admin/akplanzkk"><i class="icon-calendar icon-white" > </i> Plan gemeinsame AKs</a></li>
+              <li><a href="/news/admin/room"><i class="icon-home icon-white" > </i> Raumplan</a></li>
+              <li><a href="/news/admin/logout.php" style="color:#D90000"><i class="icon-share icon-white" > </i> Logout</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -107,14 +121,14 @@ error_reporting(-1);
 		?>
         
         <div class="btn-group">
-        	<a href="/admin/import<?php print $site; ?>" class="btn btn-info "><i class="icon-white icon-file"></i> AK-Liste importieren</a>
-            <a href="/admin/plan<?php print $site; ?>" class="btn btn-primary "><i class="icon-white icon-calendar"></i> AK Planung</a>
+        	<a href="/news/admin/import<?php print $site; ?>" class="btn btn-info "><i class="icon-white icon-file"></i> AK-Liste importieren</a>
+            <a href="/news/admin/plan<?php print $site; ?>" class="btn btn-primary "><i class="icon-white icon-calendar"></i> AK Planung</a>
 		</div>
         <?php	
 	} elseif ($site == "zkk") {
 		?>
         <div class="btn-group">
-            <a href="/admin/plan<?php print $site; ?>" class="btn btn-primary "><i class="icon-white icon-calendar"></i> AK Planung</a>
+            <a href="/news/admin/plan<?php print $site; ?>" class="btn btn-primary "><i class="icon-white icon-calendar"></i> AK Planung</a>
 		</div>
         <?php	
 	}

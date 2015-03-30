@@ -69,7 +69,7 @@ function tweetIt($post){
 function news_addform() {
 	?>
 
-<form class="form-horizontal" target="/admin/newsadd" method="post" enctype="application/x-www-form-urlencoded">
+<form class="form-horizontal" method="post" enctype="application/x-www-form-urlencoded">
   <fieldset>
     
     <!-- Form Name -->
@@ -152,7 +152,7 @@ function news_table() {
 		$parts = explode("#|#",$value);
 		// add data and then the form to the table
 		$output .= "<tr><td>".$parts[0]."</td><td>".$parts[1]."</td><td>";
-		$output .= '<form class="form-horizontal" method="post" action="/admin/newsdelete" enctype="application/x-www-form-urlencoded">
+		$output .= '<form class="form-horizontal" method="post" enctype="application/x-www-form-urlencoded">
 <fieldset>
     <button id="submit" name="newsnumber" class="btn btn-danger" value="'.$nnumber.'">Löschen</button>
 </fieldset>

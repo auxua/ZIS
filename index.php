@@ -9,8 +9,16 @@ error_reporting(-1);
 
 	require('admin/data.php');
     
+	// The whole $path_info-Stuff is just a fix for the nginx...
 	
+	//var_dump($_SERVER['PATH_INFO']);
 	$path_info = $_SERVER['PATH_INFO'];
+	
+	if (startsWith($path_info,"//")) {
+		$path_info = substr($path_info,1);
+	}
+	
+	
 	if (!startsWith($path_info,"/news/")) {
 		$path_info = "/news".$path_info;
 	}
@@ -45,6 +53,7 @@ error_reporting(-1);
 		else if ($path_info == '/news/tagungsheft') { $site='koma'; $view = "block"; }
 		else if ($path_info == '/news/zapfgo') { $site='zapfgo';  }
 		else if ($path_info == '/news/app') { $site='app';  }
+		else if ($path_info == '/news/engelsystem') { $site='engel';  }
 		else if ($path_info == '/news/zapfsatzung') { $site='zapfsatzung';  }
 
 ?> 
@@ -95,15 +104,15 @@ error_reporting(-1);
           <a class="brand" href="#">ZIS - Zentrales InformationsSystem</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li><a href="/"><i class="icon-warning-sign icon-white" > </i> News</a></li>
-              <li><a href="/zapf"><i class="icon-th-large icon-white" > </i> AK-Plan ZaPF</a></li>
-              <li><a href="/kif"><i class="icon-th-large icon-white" > </i> AK-Plan KIF</a></li>
-              <li><a href="/koma"><i class="icon-th-large icon-white" > </i> AK-Plan KOMA</a></li>
-              <li><a href="/zkk"><i class="icon-th-large icon-white" > </i> Gemeinsame AKs</a></li>
-              <li><a href="/app"><i class="icon-download-alt icon-white" > </i> ZKK App</a></li>
-              <li><a href="/tagungsheft.pdf"><i class="icon-file icon-white" > </i> Tagungsheft</a></li>
-              <li><a href="/engelsystem"><i class="icon-wrench icon-white" > </i> Mithelfen!</a></li>
-              <li><a href="/zapfgo"><i class="icon-comment icon-white" > </i> GO/Satzung ZaPF</a></li>
+              <li><a href="/news"><i class="icon-warning-sign icon-white" > </i> News</a></li>
+              <li><a href="/news/zapf"><i class="icon-th-large icon-white" > </i> AK-Plan ZaPF</a></li>
+              <li><a href="/news/kif"><i class="icon-th-large icon-white" > </i> AK-Plan KIF</a></li>
+              <li><a href="/news/koma"><i class="icon-th-large icon-white" > </i> AK-Plan KOMA</a></li>
+              <li><a href="/news/zkk"><i class="icon-th-large icon-white" > </i> Gemeinsame AKs</a></li>
+              <li><a href="/news/app"><i class="icon-download-alt icon-white" > </i> ZKK App</a></li>
+              <li><a href="/news/tagungsheft.pdf"><i class="icon-file icon-white" > </i> Tagungsheft</a></li>
+              <li><a href="/news/engelsystem"><i class="icon-wrench icon-white" > </i> Mithelfen!</a></li>
+              <li><a href="/news/zapfgo"><i class="icon-comment icon-white" > </i> GO/Satzung ZaPF</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -118,8 +127,8 @@ error_reporting(-1);
 		?>
         
         <div class="btn-group">
-        	<a href="/<?php print $site; ?>" class="btn btn-info "><i class="icon-white icon-th-list"></i> als Liste</a>
-            <a href="/<?php print $site; ?>block" class="btn btn-primary "><i class="icon-white icon-th-large"></i> als Slot-Blöcke</a>
+        	<a href="/news/<?php print $site; ?>" class="btn btn-info "><i class="icon-white icon-th-list"></i> als Liste</a>
+            <a href="/news/<?php print $site; ?>block" class="btn btn-primary "><i class="icon-white icon-th-large"></i> als Slot-Blöcke</a>
 		</div>
         <?php		
 		
@@ -128,8 +137,8 @@ error_reporting(-1);
 		?>
         
         <div class="btn-group">
-        	<a href="/zapfgo" class="btn btn-info "><i class="icon-white icon-list-alt"></i> ZaPF GO</a>
-            <a href="/zapfsatzung" class="btn btn-primary "><i class="icon-white icon-list-alt"></i> ZaPF Satzung</a>
+        	<a href="/news/zapfgo" class="btn btn-info "><i class="icon-white icon-list-alt"></i> ZaPF GO</a>
+            <a href="/news/zapfsatzung" class="btn btn-primary "><i class="icon-white icon-list-alt"></i> ZaPF Satzung</a>
 		</div>
         <?php		
 	}
@@ -184,6 +193,9 @@ error_reporting(-1);
 			break;
 		case "app":
 			show_app();
+			break;
+		case "engel":
+			print "Link kommt...";
 			break;
 	}
 	
