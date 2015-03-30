@@ -940,4 +940,33 @@ function show_roomform()
 ';
 }
 
+function show_app()
+{
+	print '<h1>Die ZKK App</h1>
+      <p>Damit ihr auch die Informationen immer bei euch haben könnt, auch wenn kein Internet verfügbar ist, haben wir für euch die ZKK App gebaut.</p>
+      <p>Zu den Features gehören (derzeit):</p>
+      <p>
+      <ul>
+      	<li>AK-Listen der Konferenzen</li>
+        <li>AK-Pläne der Konferenzen</li>
+        <li>Eigener Stundenplan (halb-automatisch)</li>
+        <li>Raumfinder</li>
+        <li>Ort-Verzeichnis</li>
+        <li>Links, Policies, Standards</li>
+        <li>...</li>
+      </ul>
+Ihr könnt die App für iPhone/iPad, Android und WindowsPhone aus dem jeweiligen App Store herunterladen (sucht nach "ZKK").
+      
+      Zusätzlich können Android-Nutzer die App manuell von <a href="zkk.apk">hier</a> installieren.
+      
+      Bei Fragen und Problemen meldet euch gerne auch bei Arno (auX).
+      
+      Die App ist natürlich OpenSource. Der Quelltext ist auf <a href="https://github.com/auxua/ZKK-App">Github</a> zu finden.
+</p>
+<p>
+	Screenshots können unter Umständen von der aktuellen Version abweichen: <br> <br>
+    <img src="app1.PNG" class="img-rounded" width="250px"> &nbsp; <img src="app2.PNG" class="img-rounded" width="250px"> &nbsp; <img src="app3.png" class="img-rounded" width="250px"> &nbsp; <img src="app4.png" class="img-rounded" width="250px"></p><p><br><img src="app5.PNG" class="img-rounded" width="1000px">
+</p>';	
+}
+
 ?>

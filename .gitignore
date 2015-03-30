@@ -2,3 +2,4 @@ config.php
 _notes/
 admin/_notes/
 */_notes/
+*.apk

@@ -11,25 +11,30 @@ error_reporting(-1);
 	require('data.php');
 
     
+	$path_info = $_SERVER['PATH_INFO'];
+	if (!startsWith($path_info,"/news/admin/")) {
+		$path_info = "/news/admin".$path_info;
+	}
+	
     $site = 'newsadd';
 	$subsite = "";
 	if (isset($_SERVER['PATH_INFO'])) {
-		if ($_SERVER['PATH_INFO'] == '/home') { $site='newsadd'; }
-		else if ($_SERVER['PATH_INFO'] == '/newsadd') { $site='newsadd'; }
-		else if ($_SERVER['PATH_INFO'] == '/newsdelete') { $site='newsdelete'; }
-		else if ($_SERVER['PATH_INFO'] == '/akplanzapf') { $site='zapf';}
-		else if ($_SERVER['PATH_INFO'] == '/akplankoma') { $site='koma';}
-		else if ($_SERVER['PATH_INFO'] == '/akplankif') { $site='kif';}
-		else if ($_SERVER['PATH_INFO'] == '/akplanzkk') { $site='zkk';}
-		else if ($_SERVER['PATH_INFO'] == '/importzapf') { $site='zapf'; $subsite = "import"; }
-		else if ($_SERVER['PATH_INFO'] == '/importkif') { $site='kif'; $subsite = "import"; }
-		else if ($_SERVER['PATH_INFO'] == '/importkoma') { $site='koma'; $subsite = "import"; }
+		if ($path_info  == '/news/admin/home') { $site='newsadd'; }
+		else if ($path_info  == '/news/admin/newsadd') { $site='newsadd'; }
+		else if ($path_info  == '/news/admin/newsdelete') { $site='newsdelete'; }
+		else if ($path_info  == '/news/admin/akplanzapf') { $site='zapf';}
+		else if ($path_info  == '/news/admin/akplankoma') { $site='koma';}
+		else if ($path_info  == '/news/admin/akplankif') { $site='kif';}
+		else if ($path_info  == '/news/admin/akplanzkk') { $site='zkk';}
+		else if ($path_info  == '/news/admin/importzapf') { $site='zapf'; $subsite = "import"; }
+		else if ($path_info  == '/news/admin/importkif') { $site='kif'; $subsite = "import"; }
+		else if ($path_info  == '/news/admin/importkoma') { $site='koma'; $subsite = "import"; }
 //		else if ($_SERVER['PATH_INFO'] == '/importzkk') { $site='zkk'; $subsite = "import"; }
-		else if ($_SERVER['PATH_INFO'] == '/planzapf') { $site='zapf'; $subsite = "plan"; }
-		else if ($_SERVER['PATH_INFO'] == '/plankif') { $site='kif'; $subsite = "plan"; }
-		else if ($_SERVER['PATH_INFO'] == '/plankoma') { $site='koma'; $subsite = "plan"; }
-		else if ($_SERVER['PATH_INFO'] == '/planzkk') { $site='zkk'; $subsite = "plan"; }
-		else if ($_SERVER['PATH_INFO'] == '/room') { $site='room'; }
+		else if ($path_info  == '/news/admin/planzapf') { $site='zapf'; $subsite = "plan"; }
+		else if ($path_info  == '/news/admin/plankif') { $site='kif'; $subsite = "plan"; }
+		else if ($path_info  == '/news/admin/plankoma') { $site='koma'; $subsite = "plan"; }
+		else if ($path_info  == '/news/admin/planzkk') { $site='zkk'; $subsite = "plan"; }
+		else if ($path_info  == '/news/admin/room') { $site='room'; }
 	}
 ?>
 
@@ -45,7 +50,7 @@ error_reporting(-1);
 <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
 <style>
       body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        padding-top: 120px; /* 60px to make the container go all the way to the bottom of the topbar */
       }
     </style>
 <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -78,14 +83,14 @@ error_reporting(-1);
           <a class="brand" href="/admin/home">ZIS - Admin Panel</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li><a href="/admin/newsadd">Neue News</a></li>
-              <li><a href="/admin/newsdelete">News löschen</a></li>
-              <li><a href="/admin/akplanzapf">ZaPF AK-Plan</a></li>
-              <li><a href="/admin/akplankoma">KoMA AK-Plan</a></li>
-              <li><a href="/admin/akplankif">KIF AK-Plan</a></li>
-              <li><a href="/admin/akplanzkk">Plan gemeinsame AKs</a></li>
-              <li><a href="/admin/room">Raumplan</a></li>
-              <li><a href="/admin/logout.php">Logout</a></li>
+              <li><a href="/admin/newsadd"><i class="icon-comment icon-white" > </i> Neue News</a></li>
+              <li><a href="/admin/newsdelete"><i class="icon-remove icon-white" > </i> News löschen</a></li>
+              <li><a href="/admin/akplanzapf"><i class="icon-calendar icon-white" > </i> ZaPF AK-Plan</a></li>
+              <li><a href="/admin/akplankoma"><i class="icon-calendar icon-white" > </i> KoMA AK-Plan</a></li>
+              <li><a href="/admin/akplankif"><i class="icon-calendar icon-white" > </i> KIF AK-Plan</a></li>
+              <li><a href="/admin/akplanzkk"><i class="icon-calendar icon-white" > </i> Plan gemeinsame AKs</a></li>
+              <li><a href="/admin/room"><i class="icon-home icon-white" > </i> Raumplan</a></li>
+              <li><a href="/admin/logout.php" style="color:#D90000"><i class="icon-share icon-white" > </i> Logout</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

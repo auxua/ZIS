@@ -42,9 +42,9 @@ error_reporting(-1);
 		else if ($path_info == '/news/zapfblock') { $site='zapf'; $view = "block"; }
 		else if ($path_info == '/news/kifblock') { $site='kif'; $view = "block"; }
 		else if ($path_info == '/news/komablock') { $site='koma'; $view = "block"; }
-		else if ($path_info == '/news/app') { $site='koma'; $view = "block"; }
 		else if ($path_info == '/news/tagungsheft') { $site='koma'; $view = "block"; }
 		else if ($path_info == '/news/zapfgo') { $site='zapfgo';  }
+		else if ($path_info == '/news/app') { $site='app';  }
 		else if ($path_info == '/news/zapfsatzung') { $site='zapfsatzung';  }
 
 ?> 
@@ -61,7 +61,7 @@ error_reporting(-1);
 <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
 <style>
       body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        padding-top: 120px; /* 60px to make the container go all the way to the bottom of the topbar */
       }
     </style>
 <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -84,6 +84,7 @@ error_reporting(-1);
   <body cz-shortcut-listen="true">
 
     <div class="navbar navbar-inverse navbar-fixed-top">
+    <!--<div class="navbar navbar-inverse">-->
       <div class="navbar-inner">
         <div class="container">
           <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -91,17 +92,18 @@ error_reporting(-1);
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">ZIS</a>
+          <a class="brand" href="#">ZIS - Zentrales InformationsSystem</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li><a href="/">News</a></li>
-              <li><a href="/zapf">AK-Plan ZaPF</a></li>
-              <li><a href="/kif">AK-Plan KIF</a></li>
-              <li><a href="/koma">AK-Plan KOMA</a></li>
-              <li><a href="/zkk">Gemeinsame AKs</a></li>
-              <li><a href="/tagungsheft.pdf">Tagungsheft</a></li>
-              <li><a href="/engelsystem">Mithelfen!</a></li>
-              <li><a href="/zapfgo">GO/Satzung ZaPF</a></li>
+              <li><a href="/"><i class="icon-warning-sign icon-white" > </i> News</a></li>
+              <li><a href="/zapf"><i class="icon-th-large icon-white" > </i> AK-Plan ZaPF</a></li>
+              <li><a href="/kif"><i class="icon-th-large icon-white" > </i> AK-Plan KIF</a></li>
+              <li><a href="/koma"><i class="icon-th-large icon-white" > </i> AK-Plan KOMA</a></li>
+              <li><a href="/zkk"><i class="icon-th-large icon-white" > </i> Gemeinsame AKs</a></li>
+              <li><a href="/app"><i class="icon-download-alt icon-white" > </i> ZKK App</a></li>
+              <li><a href="/tagungsheft.pdf"><i class="icon-file icon-white" > </i> Tagungsheft</a></li>
+              <li><a href="/engelsystem"><i class="icon-wrench icon-white" > </i> Mithelfen!</a></li>
+              <li><a href="/zapfgo"><i class="icon-comment icon-white" > </i> GO/Satzung ZaPF</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -179,6 +181,9 @@ error_reporting(-1);
 			print "<pre>";
 			print file_get_contents_utf8("zapfsatzung.txt");
 			print "</pre>";
+			break;
+		case "app":
+			show_app();
 			break;
 	}
 	
