@@ -55,6 +55,7 @@ error_reporting(-1);
 		else if ($path_info == '/news/app') { $site='app';  }
 		//else if ($path_info == '/engelsystem') { $site='engel';  }
 		else if ($path_info == '/news/zapfsatzung') { $site='zapfsatzung';  }
+		else if ($path_info == '/news/plan') { $site='plan';  }
 
 ?> 
 
@@ -101,10 +102,11 @@ error_reporting(-1);
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">ZIS - Zentrales InformationsSystem</a>
+          <a class="brand" href="/news">ZIS - Zentrales InformationsSystem</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li><a href="/news"><i class="icon-warning-sign icon-white" > </i> News</a></li>
+              <li><a href="/news/plan"><i class="icon-th-large icon-white" > </i> Ablaufplan</a></li>
               <li><a href="/news/zapf"><i class="icon-th-large icon-white" > </i> AK-Plan ZaPF</a></li>
               <li><a href="/news/kif"><i class="icon-th-large icon-white" > </i> AK-Plan KIF</a></li>
               <li><a href="/news/koma"><i class="icon-th-large icon-white" > </i> AK-Plan KOMA</a></li>
@@ -125,7 +127,7 @@ error_reporting(-1);
 	if (($site == "zapf") || ($site == "kif") || ($site == "koma"))
 	{
 		?>
-        
+        <br />
         <div class="btn-group">
         	<a href="/news/<?php print $site; ?>" class="btn btn-info "><i class="icon-white icon-th-list"></i> als Liste</a>
             <a href="/news/<?php print $site; ?>block" class="btn btn-primary "><i class="icon-white icon-th-large"></i> als Slot-Blöcke</a>
@@ -135,7 +137,7 @@ error_reporting(-1);
 	} elseif (($site == "zapfgo") || ($site == "zapfsatzung"))
 	{
 		?>
-        
+        <br />
         <div class="btn-group">
         	<a href="/news/zapfgo" class="btn btn-info "><i class="icon-white icon-list-alt"></i> ZaPF GO</a>
             <a href="/news/zapfsatzung" class="btn btn-primary "><i class="icon-white icon-list-alt"></i> ZaPF Satzung</a>
@@ -196,6 +198,9 @@ error_reporting(-1);
 			break;
 		case "engel":
 			print "Link kommt...";
+			break;
+		case "plan":
+			print '<h1>Ablaufplan der ZKK</h1><div class="text-center"><img src="https://zkk.fsmpi.rwth-aachen.de/images/ablaufplan.jpg" /></div>';
 			break;
 	}
 	
