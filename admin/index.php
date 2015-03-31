@@ -20,15 +20,20 @@ error_reporting(-1);
 		$path_info = substr($path_info,1);
 	}
 	
+	//print "<br />".$path_info;
 	
 	if (!startsWith($path_info,"/news/")) {
 		$path_info = "/news".$path_info;
 	}
-    
-	$path_info = $_SERVER['PATH_INFO'];
+	
+	//print "<br />".$path_info;
+
 	if (!startsWith($path_info,"/news/admin/")) {
 		$path_info = "/news/admin".$path_info;
 	}
+	
+	//var_dump($path_info);
+	//print "<br />".$path_info;
 	
     $site = 'newsadd';
 	$subsite = "";

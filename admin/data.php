@@ -800,7 +800,7 @@ function getRoomPlan($room)
 {
 
 	$tablehead = '<table class="table table-striped table-bordered table-hover"><thead<tr><th>Uhrzeit</th><th>AK-Name</th></tr></thead>';
-	$output;
+	$output = "";
 	
 	$plan;
 	

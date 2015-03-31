@@ -53,7 +53,7 @@ error_reporting(-1);
 		else if ($path_info == '/news/tagungsheft') { $site='koma'; $view = "block"; }
 		else if ($path_info == '/news/zapfgo') { $site='zapfgo';  }
 		else if ($path_info == '/news/app') { $site='app';  }
-		else if ($path_info == '/news/engelsystem') { $site='engel';  }
+		//else if ($path_info == '/engelsystem') { $site='engel';  }
 		else if ($path_info == '/news/zapfsatzung') { $site='zapfsatzung';  }
 
 ?> 
@@ -111,7 +111,7 @@ error_reporting(-1);
               <li><a href="/news/zkk"><i class="icon-th-large icon-white" > </i> Gemeinsame AKs</a></li>
               <li><a href="/news/app"><i class="icon-download-alt icon-white" > </i> ZKK App</a></li>
               <li><a href="/news/tagungsheft.pdf"><i class="icon-file icon-white" > </i> Tagungsheft</a></li>
-              <li><a href="/news/engelsystem"><i class="icon-wrench icon-white" > </i> Mithelfen!</a></li>
+              <li><a href="/engelsystem"><i class="icon-wrench icon-white" > </i> Mithelfen!</a></li>
               <li><a href="/news/zapfgo"><i class="icon-comment icon-white" > </i> GO/Satzung ZaPF</a></li>
             </ul>
           </div><!--/.nav-collapse -->
