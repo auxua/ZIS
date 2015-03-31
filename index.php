@@ -211,7 +211,7 @@ error_reporting(-1);
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Fachschaft I/1 der RWTH Aachen 2015 - <a href="https://zkk.fsmpi.rwth-aachen.de/kontakt.html" >Impressum</a></p>
+                    <p>Copyright &copy; Fachschaft I/1 der RWTH Aachen 2015 - <a href="https://zkk.fsmpi.rwth-aachen.de/kontakt.html" >Impressum</a> - ZIS ist OpenSource bei <a href="https://github.com/auxua/ZIS" target="_blank">Github</a></p>
                 </div>
             </div>
             <!-- /.row -->
