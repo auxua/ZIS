@@ -804,14 +804,13 @@ function getRoomPlan($room)
 	
 	$plan;
 	
-	$planfile1 = file_get_contents_utf8("../aklist-zapf");
-	$planfile2 = file_get_contents_utf8("../aklist-koma");
-	$planfile3 = file_get_contents_utf8("../aklist-kif");
-	$planfile4 = file_get_contents_utf8("../aklist-zkk");
+	$planfile1 = file_get_contents_utf8("../aklist-zapf"); $conf[0] = " [ZaPF]";
+	$planfile2 = file_get_contents_utf8("../aklist-koma"); $conf[1] = " [KoMa]";
+	$planfile3 = file_get_contents_utf8("../aklist-kif"); $conf[2] = " [KIF]";
+	$planfile4 = file_get_contents_utf8("../aklist-zkk"); $conf[3] = " [ZKK]";
 	
 	$planlines = explode("\n",$planfile1);
 	//$aklist;
-
 	foreach ($planlines as $value)
 	{
 		$pars = explode("#|#",$value);
@@ -822,7 +821,8 @@ function getRoomPlan($room)
 		
 		if ($ak['room'] == $room)
 		{
-			$plan[$ak['day']][$ak['time']] = $ak['name'];
+			// Store the AK Name and the conference suffix
+			$plan[$ak['day']][$ak['time']] = $ak['name'].$conf[0];
 		}
 		
 		//$output = $output.'<tr><td>'.$pars[2].'</td><td>'.$pars[0].'</td><td>'.$pars[1].'</td><td>'.$pars[3].'</td></tr>';		
@@ -843,7 +843,7 @@ function getRoomPlan($room)
 		
 		if ($ak['room'] == $room)
 		{
-			$plan[$ak['day']][$ak['time']] = $ak['name'];
+			$plan[$ak['day']][$ak['time']] = $ak['name'].$conf[1];
 		}
 		
 		//$output = $output.'<tr><td>'.$pars[2].'</td><td>'.$pars[0].'</td><td>'.$pars[1].'</td><td>'.$pars[3].'</td></tr>';		
@@ -863,7 +863,7 @@ function getRoomPlan($room)
 		
 		if ($ak['room'] == $room)
 		{
-			$plan[$ak['day']][$ak['time']] = $ak['name'];
+			$plan[$ak['day']][$ak['time']] = $ak['name'].$conf[2];
 		}
 		
 		//$output = $output.'<tr><td>'.$pars[2].'</td><td>'.$pars[0].'</td><td>'.$pars[1].'</td><td>'.$pars[3].'</td></tr>';		
@@ -883,11 +883,17 @@ function getRoomPlan($room)
 		
 		if ($ak['room'] == $room)
 		{
-			$plan[$ak['day']][$ak['time']] = $ak['name'];
+			$plan[$ak['day']][$ak['time']] = $ak['name'].$conf[3];
 		}
 		
 		//$output = $output.'<tr><td>'.$pars[2].'</td><td>'.$pars[0].'</td><td>'.$pars[1].'</td><td>'.$pars[3].'</td></tr>';		
 		//$aklist[$pars[2]] = $ak;
+	}
+	
+	if (is_null($plan))
+	{
+		print "Kein AK in diesem Raum";
+		return;
 	}
 	
 	ksort($plan);
@@ -908,6 +914,105 @@ function getRoomPlan($room)
 	
 	
 	print $output;
+}
+
+
+function show_usedRooms()
+{
+	
+	$tablehead = '<ul>';
+	$output = "";
+	
+	$plan;
+	
+	$planfile1 = file_get_contents_utf8("../aklist-zapf"); $conf[0] = " [ZaPF]";
+	$planfile2 = file_get_contents_utf8("../aklist-koma"); $conf[1] = " [KoMa]";
+	$planfile3 = file_get_contents_utf8("../aklist-kif"); $conf[2] = " [KIF]";
+	$planfile4 = file_get_contents_utf8("../aklist-zkk"); $conf[3] = " [ZKK]";
+	
+	$planlines = explode("\n",$planfile1);
+	//$aklist;
+	foreach ($planlines as $value)
+	{
+		$pars = explode("#|#",$value);
+		$ak['day'] = $pars[0];
+		$ak['time'] = $pars[1];
+		$ak['room'] = $pars[3];
+		$ak['name'] = $pars[2];
+		
+		$plan[$ak['room']] = true;
+		
+		//$output = $output.'<tr><td>'.$pars[2].'</td><td>'.$pars[0].'</td><td>'.$pars[1].'</td><td>'.$pars[3].'</td></tr>';		
+		//$aklist[$pars[2]] = $ak;
+	}
+
+	$planlines = explode("\n",$planfile2);
+	//$aklist;
+
+	foreach ($planlines as $value)
+	{
+		$pars = explode("#|#",$value);
+		$ak['day'] = $pars[0];
+		$ak['time'] = $pars[1];
+		$ak['room'] = $pars[3];
+		$ak['name'] = $pars[2];
+	
+		$plan[$ak['room']] = true;
+		
+		//$output = $output.'<tr><td>'.$pars[2].'</td><td>'.$pars[0].'</td><td>'.$pars[1].'</td><td>'.$pars[3].'</td></tr>';		
+		//$aklist[$pars[2]] = $ak;
+	}
+
+	$planlines = explode("\n",$planfile3);
+	//$aklist;
+	
+	foreach ($planlines as $value)
+	{
+		$pars = explode("#|#",$value);
+		$ak['day'] = $pars[0];
+		$ak['time'] = $pars[1];
+		$ak['name'] = $pars[2];
+		$ak['room'] = $pars[3];
+		
+		$plan[$ak['room']] = true;
+		
+		//$output = $output.'<tr><td>'.$pars[2].'</td><td>'.$pars[0].'</td><td>'.$pars[1].'</td><td>'.$pars[3].'</td></tr>';		
+		//$aklist[$pars[2]] = $ak;
+	}
+	
+	$planlines = explode("\n",$planfile4);
+	//$aklist;
+	
+	foreach ($planlines as $value)
+	{
+		$pars = explode("#|#",$value);
+		$ak['day'] = $pars[0];
+		$ak['time'] = $pars[1];
+		$ak['name'] = $pars[2];
+		$ak['room'] = $pars[3];
+		
+		$plan[$ak['room']] = true;
+		
+		//$output = $output.'<tr><td>'.$pars[2].'</td><td>'.$pars[0].'</td><td>'.$pars[1].'</td><td>'.$pars[3].'</td></tr>';		
+		//$aklist[$pars[2]] = $ak;
+	}
+	
+	if (is_null($plan))
+	{
+		print "Keine AK-Räume gefunden";
+		return;
+	}
+	
+	ksort($plan);
+	
+	foreach ($plan as $key => $value)
+	{
+		$output = $output.'<li>'.$key.'</li>';
+	}
+	
+	
+	
+	print $output."</ul>";
 }
 
 function show_roomform()

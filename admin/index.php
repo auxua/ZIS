@@ -219,6 +219,8 @@ error_reporting(-1);
 				else
 				{
 					show_roomform();
+					print "<br /><h3>genutzte Räume</h3>";
+					show_usedRooms();
 				}
 				break;
 		}
