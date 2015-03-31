@@ -20,11 +20,11 @@ error_reporting(-1);
 		$path_info = substr($path_info,1);
 	}
 	
-	//print "<br />".$path_info;
+	/*print "<br />".$path_info;
 	
 	if (!startsWith($path_info,"/news/")) {
 		$path_info = "/news".$path_info;
-	}
+	}*/
 	
 	//print "<br />".$path_info;
 
@@ -99,7 +99,7 @@ error_reporting(-1);
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="/admin/home">ZIS - Admin Panel</a>
+          <a class="brand" href="/news/admin/home">ZIS - Admin Panel</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li><a href="/news/admin/newsadd"><i class="icon-comment icon-white" > </i> Neue News</a></li>
@@ -163,7 +163,8 @@ error_reporting(-1);
 			case "kif":
 				print "<h1>AK-Planung KIF</h1>";
 				if ($subsite == "import") { import_kif(); }			
-				if ($subsite == "plan") 
+				//if ($subsite == "plan") 
+				else
 				{ 
 					if (isset($_POST['submit']))
 					{
@@ -175,7 +176,8 @@ error_reporting(-1);
 			case "zapf":
 				print "<h1>AK-Planung ZaPF</h1>";
 				if ($subsite == "import") { import_zapf(); }	
-				if ($subsite == "plan") 
+				//if ($subsite == "plan") 
+				else
 				{ 
 					if (isset($_POST['submit']))
 					{
@@ -187,7 +189,8 @@ error_reporting(-1);
 			case "koma":
 				print "<h1>AK-Planung KoMa</h1>";
 				if ($subsite == "import") { import_koma(); }	
-				if ($subsite == "plan") 
+				//if ($subsite == "plan") 
+				else
 				{ 
 					if (isset($_POST['submit']))
 					{
@@ -198,7 +201,7 @@ error_reporting(-1);
 				break;
 			case "zkk":
 				print "<h1>AK-Planung gemeinsame AKs</h1>";
-				if ($subsite == "plan") 
+				//if ($subsite == "plan") 
 				{ 
 					if (isset($_POST['submit']))
 					{
