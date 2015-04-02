@@ -306,6 +306,7 @@ function import_kif() {
 		
 
 		file_put_contents('../ak-kif', trim($line));
+		setVersion("ak-kif",getNow());
 		
 		print "fertig!<br />";
 		
@@ -313,6 +314,7 @@ function import_kif() {
 		print "gemeinsame AKs gefunden: ".$zkknum."<br />";
 		print "schreibe externe AKs...";
 		file_put_contents('../ak-zkk', trim($zkkline));
+		setVersion("ak-zkk",getNow());
 		print "fertig!";
 		
 		print "<p />Importe KIF-AKs: ".$num;
@@ -376,12 +378,14 @@ function import_zapf() {
 		print "fertig<br />Beginne Datenexport...";
 
 		file_put_contents('../ak-zapf', trim($line));
+		setVersion("ak-zapf",getNow());
 		
 		print "fertig!<br />";
 		$zkknum = count ($ZKKAKs);
 		print "gemeinsame AKs gefunden: ".$zkknum."<br />";
 		print "schreibe externe AKs...";
 		file_put_contents('../ak-zkk', trim($zkkline));
+		setVersion("ak-zkk",getNow());
 		print "fertig!";
 		print "<p />Importe ZaPF-AKs: ".$num;
 }
@@ -446,12 +450,14 @@ function import_koma() {
 		print "fertig<br />Beginne Datenexport...";
 
 		file_put_contents('../ak-koma', trim($line));
+		setVersion("ak-koma",getNow());
 		
 		print "fertig!<br />";
 		$zkknum = count ($ZKKAKs);
 		print "gemeinsame AKs gefunden: ".$zkknum."<br />";
 		print "schreibe externe AKs...";
 		file_put_contents('../ak-zkk', trim($zkkline));
+		setVersion("ak-zkk",getNow());
 		print "fertig!";
 		print "<p />Importe KoMa-AKs: ".$num;
 		
@@ -495,6 +501,9 @@ function aktable_zkk() {
 function aktable_showgeneric($a,$b) {
 	// Get File as String
 	$newsfile = file_get_contents_utf8($a);
+	$versiona = getFileVersion($a);
+	$versionb = getFileVersion($b);
+	print "Letzte Aktualisierung (Import): ".$versiona." <br />Letzte Version (AK-Plan): ".$versionb." <br />";
 	// split for lines
 	$newslines = explode("\n",$newsfile);
 	//number of news
@@ -516,6 +525,7 @@ function aktable_showgeneric($a,$b) {
 		$ak['day'] = $pars[0];
 		$ak['time'] = $pars[1];
 		$ak['room'] = $pars[3];
+		$ak['used'] = false;
 		
 		$aklist[$pars[2]] = $ak;
 	}
@@ -532,12 +542,15 @@ function aktable_showgeneric($a,$b) {
 		switch ($aklist[$parts[0]]['day']) {
 			case "Donnerstag":
 				$ch['do'] = ' checked="checked" ';
+				$aklist[$parts[0]]['used'] = true;
 				break;
 			case "Freitag":
 				$ch['fr'] = ' checked="checked" ';
+				$aklist[$parts[0]]['used'] = true;
 				break;
 			case "Samstag":
 				$ch['sa'] = ' checked="checked" ';
+				$aklist[$parts[0]]['used'] = true;
 				break;
 		}
 		$output = $output.'<td><!-- Multiple Radios -->
@@ -584,6 +597,14 @@ function aktable_showgeneric($a,$b) {
     <button id="submit" name="submit" class="btn btn-primary">Übernehmen</button>
   </div>
 </div></form>';
+
+	foreach ($aklist as $key => $value)
+	{
+		if ($value['used'] == false)
+		{
+			$output = $output."<br /> Achtung - nicht mehr vorhanden: ".$key." - bei Speichern des Planes, wird der genannte AK aus dem Plan entfernt";
+		}
+	}
 		
 	print $output;		
 }
@@ -638,7 +659,8 @@ function aktable_genericadd($arg) {
 function aktable_kifadd($arg) {
 	$line = aktable_genericadd($arg);
 	if ($line =="") return;
-	file_put_contents('../aklist-kif', trim($line));	
+	file_put_contents('../aklist-kif', trim($line));
+	setVersion("aklist-kif",getNow());	
 }
 
 // creates a plan file for zapf, based on the submitted form
@@ -646,6 +668,7 @@ function aktable_zapfadd($arg) {
 	$line = aktable_genericadd($arg);
 	if ($line =="") return;
 	file_put_contents('../aklist-zapf', trim($line));	
+	setVersion("aklist-zapf",getNow());	
 }
 
 // creates a plan file for koma, based on the submitted form
@@ -653,6 +676,7 @@ function aktable_komaadd($arg) {
 	$line = aktable_genericadd($arg);
 	if ($line =="") return;
 	file_put_contents('../aklist-koma', trim($line));	
+	setVersion("aklist-koma",getNow());	
 }
 
 // creates a plan file for zkk, based on the submitted form
@@ -660,6 +684,7 @@ function aktable_zkkadd($arg) {
 	$line = aktable_genericadd($arg);
 	if ($line =="") return;
 	file_put_contents('../aklist-zkk', trim($line));	
+	setVersion("aklist-zkk",getNow());	
 }
 
 function show_kifplan($block) {
@@ -699,6 +724,8 @@ function show_plan($source)
 	
 	$planfile = file_get_contents_utf8($source);
 	
+	
+	
 	$planlines = explode("\n",$planfile);
 	//$aklist;
 	
@@ -716,6 +743,8 @@ function show_plan($source)
 	$output = $output."</table>";
 	
 	print $output;
+	$versiona = getFileVersion($source);
+	print "Letzte Aktualisierung: ".$versiona." <br />";
 }
 
 
@@ -797,6 +826,9 @@ function show_plan_blockwise($source)
 	}
 	
 	print $output;
+	
+	$versiona = getFileVersion($source);
+	print "Letzte Aktualisierung: ".$versiona." <br />";
 	
 }
 
@@ -1081,6 +1113,81 @@ Ihr könnt die App für iPhone/iPad, Android und WindowsPhone aus dem jeweiligen
 	Screenshots können unter Umständen von der aktuellen Version abweichen: <br> <br>
     <img src="app1.PNG" class="img-rounded" width="250px"> &nbsp; <img src="app2.PNG" class="img-rounded" width="250px"> &nbsp; <img src="app3.png" class="img-rounded" width="250px"> &nbsp; <img src="app4.png" class="img-rounded" width="250px"></p><p><br><img src="app5.PNG" class="img-rounded" width="1000px">
 </p>';	
+}
+
+/////////////////////////////////////////////
+// File versioning
+/////////////////////////////////////////////
+
+
+// Get Version of the file $file - $admin describes whether the call comes from admin panel
+function getVersion($file,$admin)
+{
+	$path = "fileversions";
+	if ($admin)
+	{
+		$path = "../".$path;
+		$file = substr($file,3);
+	}
+	
+	$vfile = file_get_contents_utf8($path);
+	
+	$planlines = explode("\n",$vfile);
+	//$aklist;
+	foreach ($planlines as $value)
+	{
+		$pars = explode("#|#",$value);
+		if ($pars[0] == $file)
+		{
+			return $pars[1];
+		}
+	}
+	
+	return "Unknown";
+}
+
+// Sets the Version of the File to the specified state
+function setVersion($file,$newdate)
+{
+	$path = "../fileversions";
+	
+	$vfile = file_get_contents_utf8($path);
+	$output = "";
+	$planlines = explode("\n",$vfile);
+	//$aklist;
+	foreach ($planlines as $value)
+	{
+		$pars = explode("#|#",$value);
+		if ($pars[0] == $file)
+		{
+			$output = $output."\n".$pars[0]."#|#".$newdate;
+		}
+		else
+		{
+			$output = $output."\n".$pars[0]."#|#".$pars[1];
+		}
+	}
+	
+	$output = trim($output);
+	file_put_contents("../fileversions",$output);
+}
+
+// Get a simple representation of the Time
+function getNow()
+{
+	$day = jddayofweek ( cal_to_jd(CAL_GREGORIAN, date("m"),date("d"), date("Y")) , 2 ); 
+	$line = $day.", ".date("H:i");
+	return $line;
+}
+
+// Tries to get the File version and tries detecting prefixes (paths)
+function getFileVersion($file)
+{
+	if (startsWith($file,"../"))
+	{
+		return getVersion($file,true);
+	}
+	return getVersion($file,false);
 }
 
 ?>
