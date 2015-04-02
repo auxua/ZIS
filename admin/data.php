@@ -129,7 +129,16 @@ function news_add($title, $text, $tweet) {
 
 	
 	if ($tweet) {
-		tweetIt("Aktuelle Ankündigung: ".$title." #zkk15");
+		$tweetText = "Aktuelle Ankündigung: ".$title." #ZKK15";
+		if (strlen($tweetText) < 140)
+		{
+			tweetIt("Aktuelle Ankündigung: ".$title." #ZKK15");
+		}
+		else
+		{
+			$shortTitle = substr($title,0,100)."...";
+			tweetIt("Aktuelle Ankündigung: ".$shortTitle." #ZKK15");
+		}
 		print "<br />News getweetet...";
 	}
 }
@@ -1062,7 +1071,7 @@ function show_app()
       </ul>
 Ihr könnt die App für iPhone/iPad, Android und WindowsPhone aus dem jeweiligen App Store herunterladen (sucht nach "ZKK").
       
-      Zusätzlich können Android-Nutzer die App manuell von <a href="zkk.apk">hier</a> installieren.
+      Zusätzlich können Android-Nutzer die App manuell von <a href="http://zkkapp.auxua.eu/zkk.apk">hier</a> installieren.
       
       Bei Fragen und Problemen meldet euch gerne auch bei Arno (auX).
       
