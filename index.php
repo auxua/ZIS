@@ -195,6 +195,7 @@ error_reporting(-1);
 			break;
 		case "app":
 			show_app();
+			showFAQ();
 			break;
 		case "engel":
 			print "Link kommt...";

@@ -1088,7 +1088,8 @@ function show_roomform()
 
 function show_app()
 {
-	print '<h1>Die ZKK App</h1>
+	?>
+    <h1>Die ZKK App</h1>
       <p>Damit ihr auch die Informationen immer bei euch haben könnt, auch wenn kein Internet verfügbar ist, haben wir für euch die ZKK App gebaut.</p>
       <p>Zu den Features gehören (derzeit):</p>
       <p>
@@ -1111,8 +1112,27 @@ Ihr könnt die App für iPhone/iPad, Android und WindowsPhone aus dem jeweiligen
 </p>
 <p>
 	Screenshots können unter Umständen von der aktuellen Version abweichen: <br> <br>
-    <img src="app1.PNG" class="img-rounded" width="250px"> &nbsp; <img src="app2.PNG" class="img-rounded" width="250px"> &nbsp; <img src="app3.png" class="img-rounded" width="250px"> &nbsp; <img src="app4.png" class="img-rounded" width="250px"></p><p><br><img src="app5.PNG" class="img-rounded" width="1000px">
-</p>';	
+    <div class="row">
+	<div class="span3">
+		<small>iPhone - Markierbare AKs</small><br />
+    	<img src="app1.PNG" class="img-rounded" width="250px">
+    </div><div class="span3">
+	    <small>iPhone - Menü</small><br />
+       	<img src="app2.PNG" class="img-rounded" width="250px"> 
+    </div><div class="span3">
+        <small>Windows Phone - Gemeinschaftsstandards</small><br />
+        <img src="app3.png" class="img-rounded" width="250px">
+    </div><div class="span3">
+        <small>Android - Update</small><br />
+        <img src="app4.png" class="img-rounded" width="250px">
+    </div></div><p>&nbsp;</p>
+    <div class="row">
+	<div class="span12">     
+        <small>iPad - News</small><br />
+        <img src="app5.PNG" class="img-rounded" width="1000px">
+    </div>
+</p><p>&nbsp;</p>
+<?php
 }
 
 /////////////////////////////////////////////
@@ -1188,6 +1208,37 @@ function getFileVersion($file)
 		return getVersion($file,true);
 	}
 	return getVersion($file,false);
+}
+
+// Prints the actual FAQ for the App
+function showFAQ()
+{
+	?>
+    <h1>FAQs</h1>
+<div class="row">
+	<div class="span6">
+		<h3>Wie viel kostet die App?</h3>
+		<p>Natürlich ist die App umsonst!</p>
+	</div>
+	<div class="span6">
+		<h3>Für welche Systeme ist die App verfügbar?</h3>
+		<p>
+		<ul><li>Android ab Version 4</li><li>iOS ab Version 7.0</li><li>Windows Phone 8</li></ul><br />
+		Möglicherweise läuft die App auch auf älteren Systemen, dies ist aber wenig wahrscheinlich.
+		</p>
+	</div>
+</div>
+<div class="row">
+	<div class="span6">
+		<h3>Welche Daten werden über mich gesammelt?</h3>
+		<p>Keine. Ganz einfach.</p>
+	</div>
+	<div class="span6">
+		<h3>Kann ich den Quelltext sehen?</h3>
+		<p>Ja! Der Quelltext ist zu finden <a href="https://github.com/auxua/ZKK-App">auf Github</a></p>
+	</div>
+</div>
+<?php
 }
 
 ?>
