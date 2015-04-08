@@ -117,7 +117,15 @@ function news_add($title, $text, $tweet) {
 	$line = "";
 	$line .= $title."#|#";
 	$line .= trim(preg_replace('/\s+/', ' ', nl2br($text)))."#|#";
-	$day = jddayofweek ( cal_to_jd(CAL_GREGORIAN, date("m"),date("d"), date("Y")) , 2 ); 
+	$day = jddayofweek ( cal_to_jd(CAL_GREGORIAN, date("m"),date("d"), date("Y")) , 0 ); 
+	// replace number of day by the german name
+	$day = str_replace("0", "Sonntag", $day);
+	$day = str_replace("1", "Montag", $day);
+	$day = str_replace("2", "Dienstag", $day);
+	$day = str_replace("3", "Mittwoch", $day);
+	$day = str_replace("4", "Donnerstag", $day);
+	$day = str_replace("5", "Freitag", $day);
+	$day = str_replace("6", "Samstag", $day);
 	$line .= $day.", ".date("H:i")."\n";
 	
 	// pre-append to file
@@ -397,8 +405,8 @@ function import_koma() {
 		
 		// For better parsing, use the edit-view of the wiki
 		// Debugging: use old version, no entries on the new page!
-		$url = "http://die-koma.org/komapedia/koma:74_berlin-aks?do=edit";
-		//$url = "http://die-koma.org/komapedia/koma:76_aachen-aks?do=edit";
+		//$url = "http://die-koma.org/komapedia/koma:74_berlin-aks?do=edit";
+		$url = "http://die-koma.org/komapedia/koma:76_aachen-aks?do=edit";
 		$re = "/\\|\\*\\*.*\\n.*/";  
 		$content = file_get_contents_utf8($url);
 		
