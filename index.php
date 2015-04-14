@@ -41,6 +41,7 @@ error_reporting(-1);
 		else if ($_SERVER['PATH_INFO'] == '/news/zapfsatzung') { $site='zapfsatzung';  }
 	}*/
 	
+	$standards = false;
 	
 	if ($path_info == '/news') { $site='news'; }
 		else if ($path_info == '/news/zapf') { $site='zapf'; $view = "list"; }
@@ -52,6 +53,10 @@ error_reporting(-1);
 		else if ($path_info == '/news/komablock') { $site='koma'; $view = "block"; }
 		else if ($path_info == '/news/tagungsheft') { $site='koma'; $view = "block"; }
 		else if ($path_info == '/news/zapfgo') { $site='zapfgo';  }
+		else if ($path_info == '/news/standallgemein') { $site='standallgemein'; $standards = true;  }
+		else if ($path_info == '/news/standtwitter') { $site='standtwitter'; $standards = true;  }
+		else if ($path_info == '/news/standfoto') { $site='standfoto'; $standards = true;  }
+		else if ($path_info == '/news/standfeuer') { $site='standfeuer'; $standards = true;  }
 		else if ($path_info == '/news/app') { $site='app';  }
 		//else if ($path_info == '/engelsystem') { $site='engel';  }
 		else if ($path_info == '/news/zapfsatzung') { $site='zapfsatzung';  }
@@ -115,6 +120,7 @@ error_reporting(-1);
               <li><a href="/news/tagungsheft.pdf"><i class="icon-file icon-white" > </i> Tagungsheft</a></li>
               <li><a href="/engelsystem"><i class="icon-wrench icon-white" > </i> Mithelfen!</a></li>
               <li><a href="/news/zapfgo"><i class="icon-comment icon-white" > </i> GO/Satzung ZaPF</a></li>
+              <li><a href="/news/standallgemein"><i class="icon-comment icon-white" > </i> Gemeinschaftsstandards</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -143,7 +149,19 @@ error_reporting(-1);
             <a href="/news/zapfsatzung" class="btn btn-primary "><i class="icon-white icon-list-alt"></i> ZaPF Satzung</a>
 		</div>
         <?php		
+	} elseif ($standards)
+	{
+		?>
+        <br />
+        <div class="btn-group">
+        	<a href="/news/standallgemein" class="btn btn-info "><i class="icon-white icon-user"></i> Allgemeine Standards</a>
+            <a href="/news/standtwitter" class="btn btn-primary "><i class="icon-white icon-retweet"></i> Twitterwall</a>
+            <a href="/news/standfoto" class="btn btn-primary "><i class="icon-white icon-camera"></i> Fotoregeln</a>
+            <a href="/news/standfeuer" class="btn btn-primary "><i class="icon-white icon-fire"></i> Seelenfeuerwehr</a>
+		</div>
+        <?php
 	}
+	
 	
 	?>
     
@@ -202,6 +220,30 @@ error_reporting(-1);
 			break;
 		case "plan":
 			print '<h1>Ablaufplan der ZKK</h1><div class="text-center"><img src="https://zkk.fsmpi.rwth-aachen.de/images/ablaufplan.jpg" /></div>';
+			break;
+		case "standallgemein":
+			print "<h1>Allgemeine Standards</h1>";
+			print "<pre>";
+			print file_get_contents_utf8("standallgemein.txt");
+			print "</pre>";
+			break;
+		case "standtwitter":
+			print "<h1>Twitterwall</h1>";
+			print "<pre>";
+			print file_get_contents_utf8("standtwitter.txt");
+			print "</pre>";
+			break;
+		case "standfoto":
+			print "<h1>Fotoregeln</h1>";
+			print "<pre>";
+			print file_get_contents_utf8("standfoto.txt");
+			print "</pre>";
+			break;
+		case "standfeuer":
+			print "<h1>Seelenfeuerwehr</h1>";
+			print "<pre>";
+			print file_get_contents_utf8("standfeuer.txt");
+			print "</pre>";
 			break;
 	}
 	
