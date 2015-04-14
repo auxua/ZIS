@@ -1110,13 +1110,26 @@ function show_app()
         <li>Links, Policies, Standards</li>
         <li>...</li>
       </ul>
-Ihr könnt die App für iPhone/iPad, Android und WindowsPhone aus dem jeweiligen App Store herunterladen (sucht nach "ZKK").
-      
-      Zusätzlich können Android-Nutzer die App manuell von <a href="http://zkkapp.auxua.eu/zkk.apk">hier</a> installieren.
+Ihr könnt die App für iPhone/iPad, Android und WindowsPhone aus dem jeweiligen App Store herunterladen (sucht nach "ZKK" oder nutzt die Links unten).
+     
       
       Bei Fragen und Problemen meldet euch gerne auch bei Arno (auX).
       
       Die App ist natürlich OpenSource. Der Quelltext ist auf <a href="https://github.com/auxua/ZKK-App">Github</a> zu finden.
+</p>
+<p>
+<a href="https://play.google.com/store/apps/details?id=com.auxua.zkkapp"  target="_blank">
+  <img alt="Android app on Google Play" style="height:60px"
+       src="https://developer.android.com/images/brand/de_app_rgb_wo_60.png" />
+</a> &nbsp; 
+<a href="http://www.windowsphone.com/s?appid=f0f9b8d7-94ef-49ab-8f55-bae7e08e958b"  target="_blank">
+  <img alt="App im Windows Phone Store" style="height:60px"
+       src="wpstore.png" />
+</a> &nbsp; 
+<a href="https://itunes.apple.com/de/app/zkk-app/id982931658?l=de&ls=1&mt=8" target="_blank">
+  <img alt="iOS App" style="height:60px"
+       src="ios.png" />
+</a>
 </p>
 <p>
 	Screenshots können unter Umständen von der aktuellen Version abweichen: <br> <br>
