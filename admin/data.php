@@ -25,6 +25,7 @@ function file_get_contents_utf8($fn) {
 
 
 function startsWith($haystack, $needle) {
+	
     // search backwards starting from haystack length characters from the end
     return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== FALSE;
 }
@@ -263,7 +264,7 @@ function import_kif() {
 		
 		// For better parsing, use the edit-view of the wiki
 		$url = "https://kif.fsinf.de/w/index.php?title=KIF430:Arbeitskreise&action=edit";
-		$re = "/\\{\\{Ak Spalte 430\\n\\| name=(.+\\n)*\\}\\}/"; 
+		$re = "/{{Ak Spalte 430\\n\\| name=(.+\\n)*\\}\\}/"; 
 		$content = file_get_contents_utf8($url);
 		
 		// get all AK-Spalten
@@ -283,7 +284,11 @@ function import_kif() {
 		{
 			// Regex every title and contents
 			$toffset = strpos($value,"| name=")+7;
-			$title = substr($value,$toffset,strpos($value,"\n",$toffset+7)-$toffset);
+			//var_dump($toffset);
+			//$title = substr($value,$toffset,strpos($value,"\n",$toffset+7)-$toffset);
+			$title = substr($value,$toffset,strpos($value,"\n",$toffset)-$toffset);
+			//var_dump(strpos($value,"\n",$toffset+7));
+			var_dump($title);
 			$coffset = strpos($value,"| beschreibung=")+15;
 			$content = substr($value,$coffset,strpos($value,"\n",$coffset+15)-$coffset);
 			
