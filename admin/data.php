@@ -26,7 +26,7 @@ function file_get_contents_utf8($fn) {
 
 function startsWith($haystack, $needle) {
 	
-    // search backwards starting from haystack length characters from the end
+    // search backwards starting from haystack length cfrom the end
     return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== FALSE;
 }
 function endsWith($haystack, $needle) {
@@ -130,7 +130,7 @@ function news_add($title, $text, $tweet) {
 	$line .= $day.", ".date("H:i")."\n";
 	
 	// pre-append to file
-	$line .= file_get_contents('../news.txt');
+	$line .= file_get_contents_utf8('../news.txt');
 	file_put_contents('../news.txt', $line);
 		
 	print "Beitrag hinzugefügt";
@@ -156,7 +156,7 @@ function news_add($title, $text, $tweet) {
 function news_table() {
 	// Quick and Dirty
 	// Get File as String
-	$newsfile = file_get_contents('../news.txt');
+	$newsfile = file_get_contents_utf8('../news.txt');
 	// split for lines
 	$newslines = explode("\n",$newsfile);
 	// number of news
@@ -187,7 +187,7 @@ function news_table() {
 function news_delete($number) {
 	// Quick and Dirty
 	// Get File as String
-	$newsfile = file_get_contents('../news.txt');
+	$newsfile = file_get_contents_utf8('../news.txt');
 	// split for lines
 	$newslines = explode("\n",$newsfile);
 	// number of news
@@ -1267,4 +1267,144 @@ function showFAQ()
 <?php
 }
 
+//////////////////////////////////////////////////////////////
+// Mensa
+//////////////////////////////////////////////////////////////
+
+function showMensaForm()
+{
+	//print "test2";
+?>
+
+<form class="form-horizontal" method="post">
+<fieldset>
+
+<!-- Form Name -->
+<legend>Mensa bewerten</legend>
+
+<!-- Multiple Radios -->
+<div class="control-group">
+  <label class="control-label" for="radiomensa">Besuchte Mensa</label>
+  <div class="controls">
+    <label class="radio" for="radiomensa-0">
+      <input type="radio" name="radiomensa" id="radiomensa-0" value="Mensa Academica" checked="checked">
+      Mensa Academica
+    </label>
+    <label class="radio" for="radiomensa-1">
+      <input type="radio" name="radiomensa" id="radiomensa-1" value="Bistro">
+      Bistro
+    </label>
+    <label class="radio" for="radiomensa-2">
+      <input type="radio" name="radiomensa" id="radiomensa-2" value="Ahornstraße">
+      Ahornstraße
+    </label>
+    <label class="radio" for="radiomensa-3">
+      <input type="radio" name="radiomensa" id="radiomensa-3" value="Mensa Vita">
+      Mensa Vita
+    </label>
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="textessen">Gericht</label>
+  <div class="controls">
+    <input id="textessen" name="textessen" type="text" placeholder="optional" class="input-xlarge">
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="texthome">Heimatuni</label>
+  <div class="controls">
+    <input id="texthome" name="texthome" type="text" placeholder="" class="input-xlarge" required="">
+    
+  </div>
+</div>
+
+<!-- Multiple Radios -->
+<div class="control-group">
+  <label class="control-label" for="radiorating">Bewertung im Vergleich zu eigenen Mensen</label>
+  <div class="controls">
+    <label class="radio" for="radiorating-0">
+      <input type="radio" name="radiorating" id="radiorating-0" value="Viel besser" checked="checked">
+      Viel besser
+    </label>
+    <label class="radio" for="radiorating-1">
+      <input type="radio" name="radiorating" id="radiorating-1" value="Etwas besser">
+      Etwas besser
+    </label>
+    <label class="radio" for="radiorating-2">
+      <input type="radio" name="radiorating" id="radiorating-2" value="etwa gleich">
+      etwa gleich
+    </label>
+    <label class="radio" for="radiorating-3">
+      <input type="radio" name="radiorating" id="radiorating-3" value="schlechter">
+      schlechter
+    </label>
+    <label class="radio" for="radiorating-4">
+      <input type="radio" name="radiorating" id="radiorating-4" value="Viel Schlechter">
+      Viel Schlechter
+    </label>
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="textcomment">Kommentar</label>
+  <div class="controls">
+    <input id="textcomment" name="textcomment" type="text" placeholder="Mensen sind bah" class="input-xlarge">
+    
+  </div>
+</div>
+
+<!-- Button -->
+<div class="control-group">
+  <label class="control-label" for="submit"></label>
+  <div class="controls">
+    <button id="submit" name="submit" class="btn btn-success">Absenden</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+
+<?php	
+}
+
+define ("MENSAMUTEX",42);
+
+function addMensaRating()
+{
+	$mensa = $_POST['radiomensa'];
+	if (empty($mensa)) $mensa = "unbekannt";
+	$gericht = $_POST['textessen'];
+	if (empty($gericht)) $gericht = "irgendwas";
+	$uni = $_POST['texthome'];
+	if (empty($uni)) $uni = "irgendwo";
+	$rating = $_POST['radiorating'];
+	if (empty($rating)) $rating = "Viel Schlechter";
+	$comment = $_POST['textcomment'];
+	if (empty($comment)) $comment = "Kein Kommentar";
+	
+	// Prevent race conditions by using mutex!
+	$mutex = sem_get(MENSAMUTEX);
+	sem_acquire($mutex);
+	
+	// get actual data
+	$line = "";
+	$line .= $mensa."#|#";
+	$line .= trim(preg_replace('/\s+/', ' ', nl2br($gericht)))."#|#";
+	$line .= trim(preg_replace('/\s+/', ' ', nl2br($uni)))."#|#";
+	$line .= $rating."#|#";
+	$line .= trim(preg_replace('/\s+/', ' ', nl2br($comment)))."\n";
+	// pre-append to file
+	$line .= file_get_contents_utf8('./mensen');
+	file_put_contents('./mensen', $line);
+	
+	sem_release($mutex);	
+	
+	print "Bewertung eingetragen";
+}
 ?>

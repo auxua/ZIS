@@ -61,6 +61,16 @@ error_reporting(-1);
 		//else if ($path_info == '/engelsystem') { $site='engel';  }
 		else if ($path_info == '/news/zapfsatzung') { $site='zapfsatzung';  }
 		else if ($path_info == '/news/plan') { $site='plan';  }
+		else if ($path_info == '/news/mensa') { $site='mensa';  }
+		else if ($path_info == '/news/mensaapp') { $site='mensaapp';  }
+
+// if this site is requested by the App, only provide basic information and no HTML
+if ($site == 'mensaapp')
+{
+	//var_dump($_POST);
+	addMensaRating();
+	exit();
+}
 
 ?> 
 
@@ -121,6 +131,7 @@ error_reporting(-1);
               <li><a href="/engelsystem"><i class="icon-wrench icon-white" > </i> Mithelfen!</a></li>
               <li><a href="/news/zapfgo"><i class="icon-comment icon-white" > </i> GO/Satzung ZaPF</a></li>
               <li><a href="/news/standallgemein"><i class="icon-comment icon-white" > </i> Gemeinschaftsstandards</a></li>
+              <li><a href="/news/mensa"><i class="icon-check icon-white" > </i> Mensabewertung</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -244,6 +255,17 @@ error_reporting(-1);
 			print "<pre>";
 			print file_get_contents_utf8("standfeuer.txt");
 			print "</pre>";
+			break;
+		case "mensa":
+			print "<h1>Mensabewertung</h1>";
+			print "<p>Wir sind neugierig, wie unsere Mensa im vergleich zu euren Mensen abschneidet, da wir gefühlt euch alle beneiden. Helft uns, mit Zahlen unsere Eindrücke zu bestätigen oder zu widerlegen. Vielen Dank!</p>";
+			if (isset($_POST['radiorating']))
+			{
+				// Execute add operation
+				//var_dump($_POST);
+				addMensaRating();
+			}
+			showMensaForm();
 			break;
 	}
 	
