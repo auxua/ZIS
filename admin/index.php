@@ -48,7 +48,7 @@ error_reporting(-1);
 		else if ($path_info  == '/news/admin/importzapf') { $site='zapf'; $subsite = "import"; }
 		else if ($path_info  == '/news/admin/importkif') { $site='kif'; $subsite = "import"; }
 		else if ($path_info  == '/news/admin/importkoma') { $site='koma'; $subsite = "import"; }
-//		else if ($_SERVER['PATH_INFO'] == '/importzkk') { $site='zkk'; $subsite = "import"; }
+		else if ($path_info  == '/news/admin/importzkk') { $site='zkk'; $subsite = "import"; }
 		else if ($path_info  == '/news/admin/planzapf') { $site='zapf'; $subsite = "plan"; }
 		else if ($path_info  == '/news/admin/plankif') { $site='kif'; $subsite = "plan"; }
 		else if ($path_info  == '/news/admin/plankoma') { $site='koma'; $subsite = "plan"; }
@@ -133,6 +133,7 @@ error_reporting(-1);
 	} elseif ($site == "zkk") {
 		?>
         <div class="btn-group">
+            <a href="/news/admin/import<?php print $site; ?>" class="btn btn-info "><i class="icon-white icon-file"></i> gemeinsame AKs importieren</a>
             <a href="/news/admin/plan<?php print $site; ?>" class="btn btn-primary "><i class="icon-white icon-calendar"></i> AK Planung</a>
 		</div>
         <?php	
@@ -201,6 +202,7 @@ error_reporting(-1);
 				break;
 			case "zkk":
 				print "<h1>AK-Planung gemeinsame AKs</h1>";
+				if ($subsite == "import") { import_zkk(); }
 				//if ($subsite == "plan") 
 				{ 
 					if (isset($_POST['submit']))

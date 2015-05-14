@@ -322,13 +322,13 @@ function import_kif() {
 		setVersion("ak-kif",getNow());
 		
 		print "fertig!<br />";
-		
+		/*
 		$zkknum = count ($ZKKAKs);
 		print "gemeinsame AKs gefunden: ".$zkknum."<br />";
 		print "schreibe externe AKs...";
 		file_put_contents('../ak-zkk', trim($zkkline));
 		setVersion("ak-zkk",getNow());
-		print "fertig!";
+		print "fertig!";*/
 		
 		print "<p />Importe KIF-AKs: ".$num;
 }
@@ -394,12 +394,12 @@ function import_zapf() {
 		setVersion("ak-zapf",getNow());
 		
 		print "fertig!<br />";
-		$zkknum = count ($ZKKAKs);
+		/*$zkknum = count ($ZKKAKs);
 		print "gemeinsame AKs gefunden: ".$zkknum."<br />";
 		print "schreibe externe AKs...";
 		file_put_contents('../ak-zkk', trim($zkkline));
 		setVersion("ak-zkk",getNow());
-		print "fertig!";
+		print "fertig!";*/
 		print "<p />Importe ZaPF-AKs: ".$num;
 }
 
@@ -467,14 +467,92 @@ function import_koma() {
 		
 		print "fertig!<br />";
 		$zkknum = count ($ZKKAKs);
+		//print "gemeinsame AKs gefunden: ".$zkknum."<br />";
+		//print "schreibe externe AKs...";
+		//file_put_contents('../ak-zkk', trim($zkkline));
+		//setVersion("ak-zkk",getNow());
+		//print "fertig!";
+		print "<p />Importe KoMa-AKs: ".$num;
+		
+		//var_dump($AKs);
+}
+
+function import_zkk() {
+
+		print "Hole Kif-Wiki... ";
+		
+		// For better parsing, use the edit-view of the wiki
+		$url = "https://kif.fsinf.de/w/index.php?title=KIF430:Arbeitskreise&action=edit";
+		$re = "/{{Ak Spalte 430\\n\\| name=(.+\\n)*\\}\\}/"; 
+		$content = file_get_contents_utf8($url);
+		
+		// get all AK-Spalten
+		preg_match_all($re,$content,$matches);
+		
+		$AKs;
+		$ZKKAKs;
+		$zkkline="";
+		// Number of Workshops
+		$num = 0;
+		// for file export
+		$line = "";
+		
+		print "fertig!<br />beginne Extraktion... ";
+		
+		foreach ($matches[0] as $value)
+		{
+			// Regex every title and contents
+			$toffset = strpos($value,"| name=")+7;
+			//var_dump($toffset);
+			//$title = substr($value,$toffset,strpos($value,"\n",$toffset+7)-$toffset);
+			$title = substr($value,$toffset,strpos($value,"\n",$toffset)-$toffset);
+			//var_dump(strpos($value,"\n",$toffset+7));
+			//var_dump($title);
+			$coffset = strpos($value,"| beschreibung=")+15;
+			$content = substr($value,$coffset,strpos($value,"\n",$coffset+15)-$coffset);
+			
+			// store in an array
+			$ak['title'] = trim($title);
+			$ak['content'] = trim($content);
+			
+			if (startsWith($ak['title'],"(ZKK) "))
+			{
+				$ak['title'] = substr($ak['title'],6);
+				$ZKKAKs[] = $ak;
+				$zkkline = $zkkline.$ak['title']."#|#".$ak['content']."\n";
+				continue;
+			}
+			
+			//print "<br />Entry: ".$title." - ".$content;
+			if ($title != "Titel des Arbeitskreises")
+			{
+				// not a dummy - add to workshop-list
+				$AKs[$num++] = $ak;
+				if ($num != 1) $line = $line."\n";
+				$line = $line.$ak['title']."#|#".$ak['content'];
+			}
+		}
+		
+		print "fertig<br />Beginne Datenexport...";
+		//var_dump($AKs);
+		
+		///
+		/// ZKK-Import: ignore KIF, only ZKK import!
+		///
+
+		//file_put_contents('../ak-kif', trim($line));
+		//setVersion("ak-kif",getNow());
+		
+		//print "fertig!<br />";
+		
+		$zkknum = count ($ZKKAKs);
 		print "gemeinsame AKs gefunden: ".$zkknum."<br />";
 		print "schreibe externe AKs...";
 		file_put_contents('../ak-zkk', trim($zkkline));
 		setVersion("ak-zkk",getNow());
 		print "fertig!";
-		print "<p />Importe KoMa-AKs: ".$num;
 		
-		//var_dump($AKs);
+		//print "<p />Importe KIF-AKs: ".$num;
 }
 
 ///////////////////////////////////////////////////////////////
