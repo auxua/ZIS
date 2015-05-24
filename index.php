@@ -52,7 +52,11 @@ error_reporting(-1);
 		else if ($path_info == '/news/kifblock') { $site='kif'; $view = "block"; }
 		else if ($path_info == '/news/komablock') { $site='koma'; $view = "block"; }
 		else if ($path_info == '/news/zkkblock') { $site='zkk'; $view = "block"; }
-		else if ($path_info == '/news/tagungsheft') { $site='koma'; $view = "block"; }
+		else if ($path_info == '/news/zapfblock2day') { $site='zapf'; $view = "block2day"; }
+		else if ($path_info == '/news/kifblock2day') { $site='kif'; $view = "block2day"; }
+		else if ($path_info == '/news/komablock2day') { $site='koma'; $view = "block2day"; }
+		else if ($path_info == '/news/zkkblock2day') { $site='zkk'; $view = "block2day"; }
+		//else if ($path_info == '/news/tagungsheft') { $site='koma'; $view = "block"; }
 		else if ($path_info == '/news/zapfgo') { $site='zapfgo';  }
 		else if ($path_info == '/news/standallgemein') { $site='standallgemein'; $standards = true;  }
 		else if ($path_info == '/news/standtwitter') { $site='standtwitter'; $standards = true;  }
@@ -149,6 +153,7 @@ if ($site == 'mensaapp')
         <div class="btn-group">
         	<a href="/news/<?php print $site; ?>" class="btn btn-info "><i class="icon-white icon-th-list"></i> als Liste</a>
             <a href="/news/<?php print $site; ?>block" class="btn btn-primary "><i class="icon-white icon-th-large"></i> als Slot-Blöcke</a>
+            <a href="/news/<?php print $site; ?>block2day" class="btn btn-primary "><i class="icon-white icon-th-large"></i> nur Heute</a>
 		</div>
         <?php		
 		
@@ -178,6 +183,18 @@ if ($site == 'mensaapp')
 	?>
     
 <?php
+
+// get todays filter
+$filter;
+$day = date("d");
+if ($day <29) {
+	$filter = "Donnerstag";
+} elseif ($day == 29) {
+	$filter = "Freitag";
+} else {
+	$filter = "Samstag";
+}
+
 	switch($site) {
 		case "news":
 			print "<h1>News</h1>";
@@ -187,32 +204,40 @@ if ($site == 'mensaapp')
 			print "<h1>KIF AK-Plan</h1>";
 			if ($view == "list") {
 				show_kifplan(false);
+			} elseif ($view == "block") {
+				show_kifplan(true,"");
 			} else {
-				show_kifplan(true);
+				show_kifplan(true,$filter);
 			}
 			break;
 		case "zapf":
 			print "<h1>ZaPF AK-Plan</h1>";
 			if ($view == "list") {
 				show_zapfplan(false);
+			} elseif ($view == "block") {
+				show_zapfplan(true,"");
 			} else {
-				show_zapfplan(true);
+				show_zapfplan(true,$filter);
 			}
 			break;
 		case "koma":
 			print "<h1>KoMa AK-Plan</h1>";
 			if ($view == "list") {
 				show_komaplan(false);
+			} elseif ($view == "block") {
+				show_komaplan(true,"");
 			} else {
-				show_komaplan(true);
+				show_komaplan(true,$filter);
 			}
 			break;
 		case "zkk":
 			print "<h1>Gemeinsamer AK-Plan</h1>";
 			if ($view == "list") {
 				show_zkkplan(false);	
+			} elseif ($view == "block") {
+				show_zkkplan(true,"");	
 			} else {
-				show_zkkplan(true);	
+				show_zkkplan(true,$filter);
 			}
 			break;
 		case "zapfgo":

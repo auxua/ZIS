@@ -288,7 +288,7 @@ function import_kif() {
 			//$title = substr($value,$toffset,strpos($value,"\n",$toffset+7)-$toffset);
 			$title = substr($value,$toffset,strpos($value,"\n",$toffset)-$toffset);
 			//var_dump(strpos($value,"\n",$toffset+7));
-			var_dump($title);
+			//var_dump($title);
 			$coffset = strpos($value,"| beschreibung=")+15;
 			$content = substr($value,$coffset,strpos($value,"\n",$coffset+15)-$coffset);
 			
@@ -728,6 +728,10 @@ function aktable_genericadd($arg) {
 		if (!($i >= ($nnews-1))) { $line = $line."\n"; }
 		
 		$hash = $ak['day'].$ak['time'].$ak['room'];
+		if (($ak['day'] == " ") || ($ak['time'] == " ") || ($ak['room'] == " "))
+		{
+			continue;
+		}
 		if (!empty($hashes[$hash]))
 		{
 			// Collission detected!
@@ -778,35 +782,35 @@ function aktable_zkkadd($arg) {
 	setVersion("aklist-zkk",getNow());	
 }
 
-function show_kifplan($block) {
+function show_kifplan($block,$filter) {
 	if (!$block) {
 		show_plan('aklist-kif');	
 	} else {
-		show_plan_blockwise('aklist-kif');
+		show_plan_blockwise('aklist-kif',$filter);
 	}
 }
 
-function show_komaplan($block) {
+function show_komaplan($block,$filter) {
 	if (!$block) {
 		show_plan('aklist-koma');	
 	} else {
-		show_plan_blockwise('aklist-koma');
+		show_plan_blockwise('aklist-koma',$filter);
 	}
 }
 
-function show_zapfplan($block) {
+function show_zapfplan($block,$filter) {
 	if (!$block) {
 		show_plan('aklist-zapf');	
 	} else {
-		show_plan_blockwise('aklist-zapf');
+		show_plan_blockwise('aklist-zapf',$filter);
 	}
 }
 
-function show_zkkplan($block) {
+function show_zkkplan($block,$filter) {
 	if (!$block) {
 		show_plan('aklist-zkk');	
 	} else {
-		show_plan_blockwise('aklist-zkk');
+		show_plan_blockwise('aklist-zkk',$filter);
 	}
 }
 
@@ -844,7 +848,8 @@ function show_plan($source)
 
 
 // Shows the plan of workshops according to the input file in blocks of day/time
-function show_plan_blockwise($source)
+// if $filter is set, only shows the days of $filter
+function show_plan_blockwise($source,$filter="")
 {
 	//$tablestart = '<table class="table table-striped table-bordered table-hover"><thead<tr><th>AK-Name</th><th>Tag</th><th>Zeit</th><th>Ort</th></tr></thead>';
 	$tablestart = '<table class="table table-striped table-bordered table-hover"><thead<tr><th>AK-Name</th><th>Ort</th></tr></thead>';
@@ -871,8 +876,11 @@ function show_plan_blockwise($source)
 		
 		$index = $ak['day']." - ".$ak['time'];
 		//$indices[] = $index;
-
-		$AKs[$index][] = $ak;
+		
+		if (($filter == "") || ($ak['day'] == $filter))
+		{
+			$AKs[$index][] = $ak;
+		}
 		
 		//$output = $output.'<tr><td>'.$pars[2].'</td><td>'.$pars[0].'</td><td>'.$pars[1].'</td><td>'.$pars[3].'</td></tr>';
 		//$aklist[$pars[2]] = $ak;
