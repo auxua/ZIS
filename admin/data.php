@@ -802,8 +802,12 @@ function show_zapfplan($block) {
 	}
 }
 
-function show_zkkplan() {
-	show_plan('aklist-zkk');	
+function show_zkkplan($block) {
+	if (!$block) {
+		show_plan('aklist-zkk');	
+	} else {
+		show_plan_blockwise('aklist-zkk');
+	}
 }
 
 // Shows the plan of workshops according to the input file

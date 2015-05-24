@@ -47,10 +47,11 @@ error_reporting(-1);
 		else if ($path_info == '/news/zapf') { $site='zapf'; $view = "list"; }
 		else if ($path_info == '/news/kif') { $site='kif'; $view = "list"; }
 		else if ($path_info == '/news/koma') { $site='koma'; $view = "list"; }
-		else if ($path_info == '/news/zkk') { $site='zkk';}
+		else if ($path_info == '/news/zkk') { $site='zkk'; $view = "list"; }
 		else if ($path_info == '/news/zapfblock') { $site='zapf'; $view = "block"; }
 		else if ($path_info == '/news/kifblock') { $site='kif'; $view = "block"; }
 		else if ($path_info == '/news/komablock') { $site='koma'; $view = "block"; }
+		else if ($path_info == '/news/zkkblock') { $site='zkk'; $view = "block"; }
 		else if ($path_info == '/news/tagungsheft') { $site='koma'; $view = "block"; }
 		else if ($path_info == '/news/zapfgo') { $site='zapfgo';  }
 		else if ($path_info == '/news/standallgemein') { $site='standallgemein'; $standards = true;  }
@@ -141,7 +142,7 @@ if ($site == 'mensaapp')
     <div class="container">
     
     <?php
-	if (($site == "zapf") || ($site == "kif") || ($site == "koma"))
+	if (($site == "zapf") || ($site == "kif") || ($site == "koma") || ($site == "zkk"))
 	{
 		?>
         <br />
@@ -208,7 +209,11 @@ if ($site == 'mensaapp')
 			break;
 		case "zkk":
 			print "<h1>Gemeinsamer AK-Plan</h1>";
-			show_zkkplan();
+			if ($view == "list") {
+				show_zkkplan(false);	
+			} else {
+				show_zkkplan(true);	
+			}
 			break;
 		case "zapfgo":
 			print "<h1>Geschäftsordnung der ZaPF</h1>";
