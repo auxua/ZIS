@@ -129,7 +129,7 @@ if ($site == 'mensaapp')
               <li><a href="/news/plan"><i class="icon-th-large icon-white" > </i> Ablaufplan</a></li>
               <li><a href="/news/zapf"><i class="icon-th-large icon-white" > </i> AK-Plan ZaPF</a></li>
               <li><a href="/news/kif"><i class="icon-th-large icon-white" > </i> AK-Plan KIF</a></li>
-              <li><a href="/news/koma"><i class="icon-th-large icon-white" > </i> AK-Plan KOMA</a></li>
+              <li><a href="/news/koma"><i class="icon-th-large icon-white" > </i> AK-Plan KoMa</a></li>
               <li><a href="/news/zkk"><i class="icon-th-large icon-white" > </i> Gemeinsame AKs</a></li>
               <li><a href="/news/app"><i class="icon-download-alt icon-white" > </i> ZKK App</a></li>
               <li><a href="/news/tagungsheft.pdf"><i class="icon-file icon-white" > </i> Tagungsheft</a></li>
